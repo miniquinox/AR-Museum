@@ -1,0 +1,35 @@
+PODS:
+  - arkit_plugin (0.0.1):
+    - Flutter
+    - GLTFSceneKit
+  - camera_avfoundation (0.0.1):
+    - Flutter
+  - Flutter (1.0.0)
+  - GLTFSceneKit (0.3.0)
+
+DEPENDENCIES:
+  - arkit_plugin (from `.symlinks/plugins/arkit_plugin/ios`)
+  - camera_avfoundation (from `.symlinks/plugins/camera_avfoundation/ios`)
+  - Flutter (from `Flutter`)
+
+SPEC REPOS:
+  trunk:
+    - GLTFSceneKit
+
+EXTERNAL SOURCES:
+  arkit_plugin:
+    :path: ".symlinks/plugins/arkit_plugin/ios"
+  camera_avfoundation:
+    :path: ".symlinks/plugins/camera_avfoundation/ios"
+  Flutter:
+    :path: Flutter
+
+SPEC CHECKSUMS:
+  arkit_plugin: bb56e71ef215147316ecf3774d5cb74beda20a10
+  camera_avfoundation: 3125e8cd1a4387f6f31c6c63abb8a55892a9eeeb
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  GLTFSceneKit: d1b437c514ba2aed5555afb0fddd64e030612d57
+
+PODFILE CHECKSUM: 70d9d25280d0dd177a5f637cdb0f0b0b12c6a189
+
+COCOAPODS: 1.12.1
