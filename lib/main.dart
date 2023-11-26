@@ -1,32 +1,71 @@
 import 'package:flutter/material.dart';
-import 'ar_image_tracking_page.dart'; // Import the ARImageTrackingPage
+import 'package:google_fonts/google_fonts.dart';
+import 'cities/nyc.dart';
+import 'cities/sanFran.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'ARKit Flutter Demo',
-      home: HomePage(),
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: Colors.blueGrey,
+        scaffoldBackgroundColor: Color(0xFF343541),
+      ),
+      home: MyHomePage(),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
+class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('ARKit Flutter Demo'),
-      ),
-      body: Center(
-        child: Sample(
-          'AR Image Tracking',
-          'Detects an image and places a 3D object.',
-          Icons.camera,
-          () => Navigator.of(context).push<void>(
-            MaterialPageRoute(builder: (context) => ImageDetectionPage()),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: ListView(
+            children: [
+              CityButton(
+                imageAsset: 'images/nyc.png',
+                label: 'NYC',
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => NYCScreen()),
+                  );
+                },
+                backgroundColor: Color(0xFFc197fb),
+              ),
+              SizedBox(height: 12),
+              CityButton(
+                imageAsset: 'images/golden_gate.png',
+                label: 'San\nFrancisco',
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SanFran()),
+                  );
+                },
+                backgroundColor: Color(0xFF1fddcd),
+              ),
+              SizedBox(height: 12),
+              CityButton(
+                imageAsset: 'images/madrid.png',
+                label: 'Madrid',
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => NYCScreen()),
+                  );
+                },
+                backgroundColor: Color(0xFFfbc275),
+              ),
+            ],
           ),
         ),
       ),
@@ -34,24 +73,56 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class Sample extends StatelessWidget {
-  final String title;
-  final String description;
-  final IconData icon;
-  final VoidCallback onTap;
+class CityButton extends StatelessWidget {
+  final String imageAsset;
+  final String label;
+  final Color backgroundColor;
+  final VoidCallback onPressed; // Added this line for the onPressed callback
 
-  Sample(this.title, this.description, this.icon, this.onTap);
+  CityButton({
+    required this.imageAsset,
+    required this.label,
+    required this.backgroundColor,
+    required this.onPressed, // Add this line to accept the onPressed parameter
+  });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Icon(icon, size: 100.0),
-          Text(title, style: Theme.of(context).textTheme.headline5),
-          Text(description, textAlign: TextAlign.center),
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        primary: backgroundColor,
+        onPrimary: Colors.white,
+        padding: EdgeInsets.all(0),
+      ),
+      onPressed: onPressed, // Use the passed callback here
+      child: Row(
+        children: [
+          Expanded(
+            flex: 2,
+            child: Container(
+              padding: EdgeInsets.all(16),
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: Image.asset(
+                  imageAsset,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 3,
+            child: Center(
+              child: Text(
+                label,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.dancingScript(
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );
