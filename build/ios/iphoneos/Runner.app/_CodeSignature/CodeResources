@@ -46,7 +46,7 @@
 		</data>
 		<key>Frameworks/App.framework/App</key>
 		<data>
-		bP54H0a6mcv9W+mxtRWb6Y68hvQ=
+		7ocQeZFBgLOI0U4w91gV+k+YNFs=
 		</data>
 		<key>Frameworks/App.framework/Info.plist</key>
 		<data>
@@ -54,15 +54,15 @@
 		</data>
 		<key>Frameworks/App.framework/_CodeSignature/CodeResources</key>
 		<data>
-		mL/ZVDz2mYmY+w1af2v5hF4c7SA=
+		7xnU2hPnd8ud5cSILtEfPd6yOMA=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.bin</key>
 		<data>
-		Kxj7KneCH/u+Bib9jFtT44J75fs=
+		9j/uJHeuXJljDcuLH/AVtNkNge8=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.json</key>
 		<data>
-		U3e9udq0tL7sicQXXrzTRrCmWIw=
+		FimnSMkBloFr7sG/T4nmA6Gy5xA=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/FontManifest.json</key>
 		<data>
@@ -72,7 +72,7 @@
 		<data>
 		GWb3p2cWgcWb0f1mChTW1S7Kn80=
 		</data>
-		<key>Frameworks/App.framework/flutter_assets/assets/MyObject.glb</key>
+		<key>Frameworks/App.framework/flutter_assets/assets/MyModel.glb</key>
 		<data>
 		eBC+3zWbA7UldF/x/EhcaPIphXU=
 		</data>
@@ -90,7 +90,7 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/kernel_blob.bin</key>
 		<data>
-		f3z1YCNdAVqeGIPN3hwsnSwGIVo=
+		Kaz47JfwEImf2NeMQ9bLSeaZLVU=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -190,7 +190,7 @@
 		</data>
 		<key>Frameworks/GLTFSceneKit.framework/GLTFSceneKit</key>
 		<data>
-		1QJvvhvvW67hwLP1t21VUpzUlig=
+		yyBQo+tW4znAEIPUpA1pRcgCEW0=
 		</data>
 		<key>Frameworks/GLTFSceneKit.framework/GLTFShaderModifierFragment_alphaCutoff.shader</key>
 		<data>
@@ -238,7 +238,7 @@
 		</data>
 		<key>Frameworks/arkit_plugin.framework/arkit_plugin</key>
 		<data>
-		fsmuTzJGJLYnrpD2k0+VTe6mi5Y=
+		JxBHXWPqTq2TzGvb/aNFKeu02tk=
 		</data>
 		<key>Frameworks/camera_avfoundation.framework/Info.plist</key>
 		<data>
@@ -250,7 +250,7 @@
 		</data>
 		<key>Frameworks/camera_avfoundation.framework/camera_avfoundation</key>
 		<data>
-		sanKC8XO/h6z8989YVHO5Veteao=
+		m+2ds32Z5GcqyPLEF8sQ0GJVsps=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -341,7 +341,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			hMmy5EzXf3Ul/nQY3sWTW8HkXfeIKr32KIV/ol34UvI=
+			fqgK2cIWc13+vkbozNC/5fGx06GO09etyDysMfpFwo8=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/Info.plist</key>
@@ -355,21 +355,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			oCWDctW/rqyEQHz0RhW1mQpKN6F/4SLmsee3xYj+ps4=
+			HEK6JQENB2XAwI8QbEW1iJPHnl4B0As7dFw0cn+KzAM=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.bin</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			hK6pRVJXbzjpFg59UppETLj9VzIp00Oy6ypv93fG8fs=
+			E7sfCHVpuSXDfMoC33OtwOCAFxodT9w3ZGcDrC82nP0=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			fCjLFagB5u4xO79xMReyclTn5UkcQeHeHu/GXeGFYb4=
+			S60QgVVxz4V9bphNThsCd6u8MUJh9lta/bGPxbwn79o=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/FontManifest.json</key>
@@ -386,7 +386,7 @@
 			esC0nqkvm0V+lDTUZb0fqz1BXki3TGrFOxvfy4V1yP4=
 			</data>
 		</dict>
-		<key>Frameworks/App.framework/flutter_assets/assets/MyObject.glb</key>
+		<key>Frameworks/App.framework/flutter_assets/assets/MyModel.glb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
@@ -418,7 +418,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			vXL1jQ3b6cfrkj6tNhPxcwIOC+BS35BcWjglyDOF1Jw=
+			sdMLV00Yko9E9wKzAx4gixrdrSwg9ck1kdhAQWIvwj4=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
@@ -593,7 +593,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			lhyFIwoingR+nut4xYMeGaujEs97DmkEyvddbC7tCnk=
+			FW2nYYE9/ektstTK9NNlHiJeMJFHNu6g0ECzTLfv7IE=
 			</data>
 		</dict>
 		<key>Frameworks/GLTFSceneKit.framework/GLTFShaderModifierFragment_alphaCutoff.shader</key>
@@ -677,7 +677,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			5tj+BbaUi3EnjrS9OSYu3fwFh6hK3vC6yPo12qAKp1s=
+			dFPhW3k8aZ8cXFXNlXu6GgK0pznb7wj7bYLtp2svpGw=
 			</data>
 		</dict>
 		<key>Frameworks/camera_avfoundation.framework/Info.plist</key>
@@ -698,7 +698,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ipf5yy/8naGRnZHKqv36gPTBDsasVHFESdLoJjUmS0s=
+			mKW3IlcnDNArVskZ8uz8tI9ibmmku2rKKVkHaIjgLak=
 			</data>
 		</dict>
 		<key>embedded.mobileprovision</key>
