@@ -1,24 +1,39 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
+import '../ar_image_tracking_page.dart'; // Ensure this import is correct
 
 class SanFranciscoScreen extends StatefulWidget {
-  const SanFranciscoScreen({Key? key}) : super(key: key);
-
   @override
   _SanFranciscoScreenState createState() => _SanFranciscoScreenState();
 }
 
 class _SanFranciscoScreenState extends State<SanFranciscoScreen> {
   late VideoPlayerController _controller;
-  int _currentPage = 1;
+  late Future<void> _initializeVideoPlayerFuture;
+  List<dynamic>? artworks; // Make this nullable
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset('videos/san_francisco.mp4')
-      ..initialize().then((_) {
-        setState(() {});
+    _controller = VideoPlayerController.network(
+      'https://dms.licdn.com/playlist/vid/C5605AQEvMacH4az7Rg/mp4-720p-30fp-crf28/0/1614364548556?e=1701910800&v=beta&t=1q8dAEAgYXJ34JgT911Rjbp2paa7BGwKsq1jawE7BPE',
+    );
+    _initializeVideoPlayerFuture = _controller.initialize();
+    _controller.setLooping(true);
+    loadArtworkData();
+  }
+
+  Future<void> loadArtworkData() async {
+    String jsonString = await rootBundle.loadString('assets/SF.json');
+    final jsonResponse = json.decode(jsonString);
+    setState(() {
+      artworks = [];
+      jsonResponse.forEach((key, value) {
+        artworks!.add(value);
       });
+    });
   }
 
   @override
@@ -31,76 +46,129 @@ class _SanFranciscoScreenState extends State<SanFranciscoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Explore San Francisco'),
+        title: Text('Explore San Francisco'),
       ),
-      body: ListView(
+      body: FutureBuilder(
+        future: _initializeVideoPlayerFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (_controller.value.isInitialized) {
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    AspectRatio(
+                      aspectRatio: _controller.value.aspectRatio,
+                      child: VideoPlayer(_controller),
+                    ),
+                    SizedBox(height: 20),
+                    if (artworks != null)
+                      for (var artwork in artworks!)
+                        ArtworkCard(
+                          imagePath: artwork['image'],
+                          title: artwork['title'],
+                          description: artwork['description'],
+                        ),
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const ImageDetectionPage()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.orangeAccent,
+                          backgroundColor: Colors.black,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 12),
+                          textStyle: const TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        child: const Text(
+                          "Start your Adventure",
+                          style: TextStyle(color: Colors.orangeAccent),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            } else {
+              return Center(child: Text('Error initializing video player.'));
+            }
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            if (_controller.value.isPlaying) {
+              _controller.pause();
+            } else {
+              _controller.play();
+            }
+          });
+        },
+        child: Icon(
+          _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+        ),
+      ),
+    );
+  }
+}
+
+class ArtworkCard extends StatelessWidget {
+  final String imagePath;
+  final String title;
+  final String description;
+
+  const ArtworkCard({
+    Key? key,
+    required this.imagePath,
+    required this.title,
+    required this.description,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.all(8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20.0),
-            child: AspectRatio(
-              aspectRatio: _controller.value.aspectRatio,
-              child: VideoPlayer(_controller),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              title,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
             ),
           ),
-          const SizedBox(height: 16),
-          ExplorationOptions(),
-          const Divider(),
-          PaginationSection(
-            onPageChanged: (int page) {
-              setState(() {
-                _currentPage = page;
-              });
-            },
+          ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: Image.asset(
+              imagePath,
+              fit: BoxFit.cover,
+              height: 200,
+            ),
           ),
-          ArtworkDescription(currentPage: _currentPage),
-          // Add other widgets or functionality as needed
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              description,
+              style: TextStyle(
+                fontSize: 14,
+              ),
+            ),
+          ),
         ],
-      ),
-    );
-  }
-}
-
-class ExplorationOptions extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        children: [
-          // Add exploration options here, similar to the screenshot
-        ],
-      ),
-    );
-  }
-}
-
-class PaginationSection extends StatelessWidget {
-  final Function(int) onPageChanged;
-
-  const PaginationSection({Key? key, required this.onPageChanged})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    // Replace with your pagination logic, for example, using a PageView.builder
-    return Container(); // Placeholder for pagination logic
-  }
-}
-
-class ArtworkDescription extends StatelessWidget {
-  final int currentPage;
-
-  const ArtworkDescription({Key? key, required this.currentPage})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Text(
-        // Replace with your description text for the current page
-        'Artwork #$currentPage Description...',
-        style: Theme.of(context).textTheme.bodyText1,
       ),
     );
   }

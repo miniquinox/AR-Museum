@@ -1,0 +1,11 @@
+framework module GLTFSceneKit {
+  umbrella header "GLTFSceneKit-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module GLTFSceneKit.Swift {
+  header "GLTFSceneKit-Swift.h"
+  requires objc
+}

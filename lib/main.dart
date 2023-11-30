@@ -45,15 +45,14 @@ class MainScreen extends StatelessWidget {
                 'Explore Nearby Artworks',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 20, // Smaller font size
+                  fontSize: 20,
                   color: Colors.white,
                 ),
-                textAlign: TextAlign.left, // Align text to the left
+                textAlign: TextAlign.left,
               ),
             ),
             SizedBox(height: 8),
             ArtworkCarousel(),
-            // Add other sections as needed
           ],
         ),
       ),
@@ -67,7 +66,6 @@ class MainScreen extends StatelessWidget {
             icon: Icon(Icons.search),
             label: 'Search',
           ),
-          // Add more BottomNavigationBarItem as needed
         ],
       ),
     );
@@ -80,21 +78,33 @@ class ArtworkCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 250, // Adjust based on your image aspect ratio
+      height: 250,
       child: ListView(
         scrollDirection: Axis.horizontal,
-        children: const [
+        children: [
           CityArtworkCard(
             imagePath: 'images/golden_gate.jpeg',
             cityName: 'San Francisco',
             subtitle: 'Explore maps',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SanFranciscoScreen()),
+              );
+            },
           ),
           CityArtworkCard(
             imagePath: 'images/central_park.jpeg',
             cityName: 'New York',
             subtitle: 'Explore maps',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SanFranciscoScreen()),
+              );
+            },
           ),
-          // Add more CityArtworkCard for other cities...
+          // ... other CityArtworkCards ...
         ],
       ),
     );
@@ -105,67 +115,70 @@ class CityArtworkCard extends StatelessWidget {
   final String imagePath;
   final String cityName;
   final String subtitle;
+  final VoidCallback onTap;
 
   const CityArtworkCard({
     Key? key,
     required this.imagePath,
     required this.cityName,
     required this.subtitle,
+    required this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width *
-          0.8, // Card width is 80% of the screen width
-      margin: const EdgeInsets.symmetric(horizontal: 8), // Space between cards
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Expanded(
-            child: ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(10),
-                topRight: Radius.circular(10),
-              ),
-              child: Image.asset(
-                imagePath,
-                fit: BoxFit.cover, // Cover the entire space of the card
-              ),
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-              color: Colors
-                  .grey.shade900, // Dark grey color for the title background
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(10),
-                bottomRight: Radius.circular(10),
-              ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  cityName,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.8,
+        margin: const EdgeInsets.symmetric(horizontal: 8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Expanded(
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
                 ),
-                Text(
-                  subtitle,
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.7),
-                    fontSize: 14,
-                  ),
+                child: Image.asset(
+                  imagePath,
+                  fit: BoxFit.cover,
                 ),
-              ],
+              ),
             ),
-          ),
-        ],
+            Container(
+              padding: const EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                color: Colors.grey.shade900,
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(10),
+                  bottomRight: Radius.circular(10),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    cityName,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                  Text(
+                    subtitle,
+                    style: TextStyle(
+                      color: Colors.white.withOpacity(0.7),
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

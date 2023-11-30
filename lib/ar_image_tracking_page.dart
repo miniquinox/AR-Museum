@@ -52,8 +52,9 @@ class _ImageDetectionPageState extends State<ImageDetectionPage> {
     // For this example, we are loading a .glb file
     return ARKitGltfNode(
       assetType: AssetType.flutterAsset,
-      url: 'assets/MyModel.glb', // Replace with your actual .glb asset path
-      scale: vector.Vector3.all(0.05), // Adjust the scale if necessary
+      // url: 'assets/scene.gltf', // Replace with your actual .glb asset path
+      url: 'assets/Porsche2.glb', // Replace with your actual .glb asset path
+      // scale: vector.Vector3.all(0.05), // Adjust the scale if necessary
       position: position,
     );
   }

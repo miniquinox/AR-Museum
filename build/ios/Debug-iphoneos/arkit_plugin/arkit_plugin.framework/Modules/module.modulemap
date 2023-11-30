@@ -1,0 +1,11 @@
+framework module arkit_plugin {
+  umbrella header "arkit_plugin-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module arkit_plugin.Swift {
+  header "arkit_plugin-Swift.h"
+  requires objc
+}
