@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../ar_image_tracking_page.dart'; // Ensure this import is correct
 
 class SanFran extends StatefulWidget {
+  const SanFran({super.key});
+
   @override
   _SanFranState createState() => _SanFranState();
 }
 
 class _SanFranState extends State<SanFran> {
-  bool _scrollable = true;
+  final bool _scrollable = true;
   final ScrollController controller = ScrollController();
 
   @override
@@ -17,14 +18,14 @@ class _SanFranState extends State<SanFran> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text('San Francisco'),
+        title: const Text('San Francisco'),
         backgroundColor: Colors.black,
       ),
       body: SingleChildScrollView(
         controller: controller,
         physics: _scrollable
-            ? AlwaysScrollableScrollPhysics()
-            : NeverScrollableScrollPhysics(),
+            ? const AlwaysScrollableScrollPhysics()
+            : const NeverScrollableScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -33,7 +34,7 @@ class _SanFranState extends State<SanFran> {
               Center(
                 child: Image.asset('images/golden_gate.png'),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               _buildSection(
                 title: 'Theme',
                 icon: Icons.color_lens_outlined,
@@ -62,19 +63,18 @@ class _SanFranState extends State<SanFran> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ImageDetectionPage()),
+                          builder: (context) => const ImageDetectionPage()),
                     );
                   },
-                  child: Text(
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.orangeAccent, backgroundColor: Colors.black,
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                    textStyle:
+                        const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  child: const Text(
                     "Start your Adventure",
                     style: TextStyle(color: Colors.orangeAccent),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.black,
-                    onPrimary: Colors.orangeAccent,
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                    textStyle:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -93,7 +93,7 @@ class _SanFranState extends State<SanFran> {
     required Color color,
   }) {
     return Card(
-      margin: EdgeInsets.symmetric(vertical: 8),
+      margin: const EdgeInsets.symmetric(vertical: 8),
       color: Colors.grey[900],
       elevation: 8,
       shape: RoundedRectangleBorder(
@@ -107,7 +107,7 @@ class _SanFranState extends State<SanFran> {
             Row(
               children: [
                 Icon(icon, color: color, size: 24),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 Text(
                   title,
                   style: GoogleFonts.roboto(
@@ -118,10 +118,10 @@ class _SanFranState extends State<SanFran> {
                 ),
               ],
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               content,
-              style: TextStyle(fontSize: 16, color: Colors.white70),
+              style: const TextStyle(fontSize: 16, color: Colors.white70),
             ),
           ],
         ),

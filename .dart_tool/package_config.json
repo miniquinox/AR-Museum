@@ -27,9 +27,9 @@
     },
     {
       "name": "camera_android",
-      "rootUri": "file:///Users/quino/.pub-cache/hosted/pub.dev/camera_android-0.10.8+13",
+      "rootUri": "file:///Users/quino/.pub-cache/hosted/pub.dev/camera_android-0.10.8+14",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.0"
     },
     {
       "name": "camera_avfoundation",
@@ -135,7 +135,7 @@
     },
     {
       "name": "google_fonts",
-      "rootUri": "file:///Users/quino/.pub-cache/hosted/pub.dev/google_fonts-5.1.0",
+      "rootUri": "file:///Users/quino/.pub-cache/hosted/pub.dev/google_fonts-6.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
@@ -153,9 +153,9 @@
     },
     {
       "name": "google_maps_flutter_android",
-      "rootUri": "file:///Users/quino/.pub-cache/hosted/pub.dev/google_maps_flutter_android-2.5.3",
+      "rootUri": "file:///Users/quino/.pub-cache/hosted/pub.dev/google_maps_flutter_android-2.6.0",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.0"
     },
     {
       "name": "google_maps_flutter_ios",
@@ -183,9 +183,9 @@
     },
     {
       "name": "http",
-      "rootUri": "file:///Users/quino/.pub-cache/hosted/pub.dev/http-1.1.0",
+      "rootUri": "file:///Users/quino/.pub-cache/hosted/pub.dev/http-1.1.2",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "3.2"
     },
     {
       "name": "http_parser",
@@ -362,6 +362,36 @@
       "languageVersion": "2.14"
     },
     {
+      "name": "video_player",
+      "rootUri": "file:///Users/quino/.pub-cache/hosted/pub.dev/video_player-2.8.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.1"
+    },
+    {
+      "name": "video_player_android",
+      "rootUri": "file:///Users/quino/.pub-cache/hosted/pub.dev/video_player_android-2.4.10",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "video_player_avfoundation",
+      "rootUri": "file:///Users/quino/.pub-cache/hosted/pub.dev/video_player_avfoundation-2.5.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.1"
+    },
+    {
+      "name": "video_player_platform_interface",
+      "rootUri": "file:///Users/quino/.pub-cache/hosted/pub.dev/video_player_platform_interface-6.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "video_player_web",
+      "rootUri": "file:///Users/quino/.pub-cache/hosted/pub.dev/video_player_web-2.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.1"
+    },
+    {
       "name": "web",
       "rootUri": "file:///Users/quino/.pub-cache/hosted/pub.dev/web-0.3.0",
       "packageUri": "lib/",
@@ -386,7 +416,7 @@
       "languageVersion": "3.2"
     }
   ],
-  "generated": "2023-11-26T01:07:02.868187Z",
+  "generated": "2023-11-30T00:15:33.840194Z",
   "generator": "pub",
   "generatorVersion": "3.2.0"
 }
