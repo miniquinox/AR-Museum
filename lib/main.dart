@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'SF.dart'; // Ensure this matches the file name of your San Francisco screen
+import 'Signup.dart'; // Ensure this matches the file name of your Signup screen
 
 void main() {
   runApp(const MyApp());
@@ -37,9 +38,9 @@ class MainScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            SizedBox(height: 16),
-            Padding(
+          children: [
+            const SizedBox(height: 16),
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
                 'Explore Nearby Artworks',
@@ -51,13 +52,14 @@ class MainScreen extends StatelessWidget {
                 textAlign: TextAlign.left,
               ),
             ),
-            SizedBox(height: 8),
-            ArtworkCarousel(),
+            const SizedBox(height: 8),
+            const ArtworkCarousel(),
+            CreateArtCard(context: context), // New card for signup screen
           ],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const [
+        items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
@@ -67,6 +69,33 @@ class MainScreen extends StatelessWidget {
             label: 'Search',
           ),
         ],
+      ),
+    );
+  }
+}
+
+class CreateArtCard extends StatelessWidget {
+  final BuildContext context;
+
+  const CreateArtCard({
+    Key? key,
+    required this.context,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => SignupScreen()),
+      ),
+      child: Card(
+        margin: const EdgeInsets.all(16),
+        child: ListTile(
+          title: const Text('Create Your Own Art'),
+          subtitle: const Text('Tap here to get started!'),
+          leading: const Icon(Icons.add),
+        ),
       ),
     );
   }
