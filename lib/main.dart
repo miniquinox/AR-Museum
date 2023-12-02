@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'SF.dart'; // Ensure this matches the file name of your San Francisco screen
 import 'Signup.dart'; // Ensure this matches the file name of your Signup screen
@@ -15,10 +16,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Artwork Discovery',
       theme: ThemeData.dark().copyWith(
-        primaryColor: Colors.red,
+        primaryColor: Colors.deepPurple,
         scaffoldBackgroundColor: const Color(0xFF121212),
         appBarTheme: const AppBarTheme(
-          color: Colors.red,
+          color: Colors.deepPurple,
         ),
       ),
       home: const MainScreen(),
@@ -55,35 +56,48 @@ class MainScreen extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             const ArtworkCarousel(),
-            CreateArtCard(context: context), // New card for signup screen
-            LumaAIModelCard(
-                context: context), // New card for Luma AI model screen
+            const SizedBox(height: 8),
+            CreateArtCard(), // New card for signup screen
+            const SizedBox(height: 8),
+            LumaAIModelCard(), // New card for Luma AI model screen
+            const SizedBox(height: 8),
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
-        ],
+      bottomNavigationBar: _buildBottomNavigationBar(context),
+    );
+  }
+
+  Widget _buildBottomNavigationBar(BuildContext context) {
+    return ClipRRect(
+      borderRadius: const BorderRadius.only(
+        topLeft: Radius.circular(16.0),
+        topRight: Radius.circular(16.0),
+      ),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+        child: BottomNavigationBar(
+          backgroundColor: Colors.black.withOpacity(0.5),
+          unselectedItemColor: Colors.white70,
+          selectedItemColor: Colors.white,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              label: 'Search',
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
 class CreateArtCard extends StatelessWidget {
-  final BuildContext context;
-
-  const CreateArtCard({
-    Key? key,
-    required this.context,
-  }) : super(key: key);
+  const CreateArtCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -92,12 +106,13 @@ class CreateArtCard extends StatelessWidget {
         context,
         MaterialPageRoute(builder: (context) => SignupScreen()),
       ),
-      child: Card(
-        margin: const EdgeInsets.all(16),
+      child: frostedGlassCard(
         child: ListTile(
-          title: const Text('Create Your Own Art'),
-          subtitle: const Text('Tap here to get started!'),
-          leading: const Icon(Icons.add),
+          title: const Text('Create Your Own Art',
+              style: TextStyle(color: Colors.white)),
+          subtitle: const Text('Tap here to get started!',
+              style: TextStyle(color: Colors.white70)),
+          leading: const Icon(Icons.add, color: Colors.white),
         ),
       ),
     );
@@ -105,12 +120,7 @@ class CreateArtCard extends StatelessWidget {
 }
 
 class LumaAIModelCard extends StatelessWidget {
-  final BuildContext context;
-
-  const LumaAIModelCard({
-    Key? key,
-    required this.context,
-  }) : super(key: key);
+  const LumaAIModelCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -119,16 +129,48 @@ class LumaAIModelCard extends StatelessWidget {
         context,
         MaterialPageRoute(builder: (context) => LumaAIModelScreen()),
       ),
-      child: Card(
-        margin: const EdgeInsets.all(16),
+      child: frostedGlassCard(
         child: ListTile(
-          title: const Text('View AI 3D Map'),
-          subtitle: const Text('Find Artwork nearby!'),
-          leading: const Icon(Icons.threed_rotation),
+          title: const Text('View AI 3D Map',
+              style: TextStyle(color: Colors.white)),
+          subtitle: const Text('Find Artwork nearby!',
+              style: TextStyle(color: Colors.white70)),
+          leading: const Icon(Icons.threed_rotation, color: Colors.white),
         ),
       ),
     );
   }
+}
+
+Widget frostedGlassCard({required Widget child}) {
+  return Container(
+    margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(16.0),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+        child: Container(
+          padding: const EdgeInsets.all(8.0),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.white.withOpacity(0.2),
+                Colors.deepPurple.shade400.withOpacity(0.25),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+            border: Border.all(
+              color: Colors.white.withOpacity(0.2),
+              width: 1.0,
+            ),
+          ),
+          child: child,
+        ),
+      ),
+    ),
+  );
 }
 
 class ArtworkCarousel extends StatelessWidget {
