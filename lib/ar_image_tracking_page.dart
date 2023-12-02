@@ -54,7 +54,7 @@ class _ImageDetectionPageState extends State<ImageDetectionPage> {
       assetType: AssetType.flutterAsset,
       // url: 'assets/scene.gltf', // Replace with your actual .glb asset path
       url: 'assets/Porsche2.glb', // Replace with your actual .glb asset path
-      // scale: vector.Vector3.all(0.05), // Adjust the scale if necessary
+      scale: vector.Vector3.all(0.1), // Adjust the scale if necessary
       position: position,
     );
   }

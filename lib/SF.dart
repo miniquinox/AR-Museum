@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 import '../ar_image_tracking_page.dart'; // Ensure this import is correct
+import 'package:webview_flutter/webview_flutter.dart';
 
 class SanFranciscoScreen extends StatefulWidget {
   @override
@@ -56,9 +57,18 @@ class _SanFranciscoScreenState extends State<SanFranciscoScreen> {
               return SingleChildScrollView(
                 child: Column(
                   children: [
-                    AspectRatio(
-                      aspectRatio: _controller.value.aspectRatio,
-                      child: VideoPlayer(_controller),
+                    // Video Widget
+                    // AspectRatio(
+                    //   aspectRatio: _controller.value.aspectRatio,
+                    //   child: VideoPlayer(_controller),
+                    // ),
+                    Container(
+                      height: 300, // Reduced height
+                      child: WebView(
+                        initialUrl:
+                            "https://lumalabs.ai/embed/e1316b43-d3bf-46c0-8d4d-db357176929d?mode=sparkles&background=%23ffffff&color=%23000000&showTitle=true&loadBg=true&logoPosition=bottom-left&infoPosition=bottom-right&cinematicVideo=undefined&showMenu=false",
+                        javascriptMode: JavascriptMode.unrestricted,
+                      ),
                     ),
                     SizedBox(height: 20),
                     if (artworks != null)

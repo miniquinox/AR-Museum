@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'SF.dart'; // Ensure this matches the file name of your San Francisco screen
 import 'Signup.dart'; // Ensure this matches the file name of your Signup screen
+import 'LumaAIModelScreen.dart'; // Ensure this matches the file name of your Luma AI screen
 
 void main() {
   runApp(const MyApp());
@@ -55,6 +56,8 @@ class MainScreen extends StatelessWidget {
             const SizedBox(height: 8),
             const ArtworkCarousel(),
             CreateArtCard(context: context), // New card for signup screen
+            LumaAIModelCard(
+                context: context), // New card for Luma AI model screen
           ],
         ),
       ),
@@ -95,6 +98,33 @@ class CreateArtCard extends StatelessWidget {
           title: const Text('Create Your Own Art'),
           subtitle: const Text('Tap here to get started!'),
           leading: const Icon(Icons.add),
+        ),
+      ),
+    );
+  }
+}
+
+class LumaAIModelCard extends StatelessWidget {
+  final BuildContext context;
+
+  const LumaAIModelCard({
+    Key? key,
+    required this.context,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => LumaAIModelScreen()),
+      ),
+      child: Card(
+        margin: const EdgeInsets.all(16),
+        child: ListTile(
+          title: const Text('View AI 3D Map'),
+          subtitle: const Text('Find Artwork nearby!'),
+          leading: const Icon(Icons.threed_rotation),
         ),
       ),
     );
