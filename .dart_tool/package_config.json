@@ -399,27 +399,27 @@
     },
     {
       "name": "webview_flutter",
-      "rootUri": "file:///Users/quino/.pub-cache/hosted/pub.dev/webview_flutter-3.0.4",
+      "rootUri": "file:///Users/quino/.pub-cache/hosted/pub.dev/webview_flutter-4.4.2",
       "packageUri": "lib/",
-      "languageVersion": "2.14"
+      "languageVersion": "2.19"
     },
     {
       "name": "webview_flutter_android",
-      "rootUri": "file:///Users/quino/.pub-cache/hosted/pub.dev/webview_flutter_android-2.10.4",
+      "rootUri": "file:///Users/quino/.pub-cache/hosted/pub.dev/webview_flutter_android-3.12.1",
       "packageUri": "lib/",
-      "languageVersion": "2.14"
+      "languageVersion": "2.19"
     },
     {
       "name": "webview_flutter_platform_interface",
-      "rootUri": "file:///Users/quino/.pub-cache/hosted/pub.dev/webview_flutter_platform_interface-1.9.5",
+      "rootUri": "file:///Users/quino/.pub-cache/hosted/pub.dev/webview_flutter_platform_interface-2.8.0",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "3.0"
     },
     {
       "name": "webview_flutter_wkwebview",
-      "rootUri": "file:///Users/quino/.pub-cache/hosted/pub.dev/webview_flutter_wkwebview-2.9.5",
+      "rootUri": "file:///Users/quino/.pub-cache/hosted/pub.dev/webview_flutter_wkwebview-3.9.4",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "2.19"
     },
     {
       "name": "win32",
@@ -440,7 +440,7 @@
       "languageVersion": "3.2"
     }
   ],
-  "generated": "2023-12-02T19:28:28.482972Z",
+  "generated": "2023-12-02T21:53:20.402436Z",
   "generator": "pub",
   "generatorVersion": "3.2.2"
 }

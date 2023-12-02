@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'SF.dart'; // Ensure this matches the file name of your San Francisco screen
 import 'Signup.dart'; // Ensure this matches the file name of your Signup screen
 import 'LumaAIModelScreen.dart'; // Ensure this matches the file name of your Luma AI screen
+// import 'package:my_flutter_project/login_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -58,9 +59,9 @@ class MainScreen extends StatelessWidget {
             const ArtworkCarousel(),
             const SizedBox(height: 8),
             CreateArtCard(), // New card for signup screen
-            const SizedBox(height: 8),
+            // const SizedBox(height: 8),
             LumaAIModelCard(), // New card for Luma AI model screen
-            const SizedBox(height: 8),
+            // const SizedBox(height: 8),
           ],
         ),
       ),

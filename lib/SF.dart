@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
-import '../ar_image_tracking_page.dart'; // Ensure this import is correct
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:webview_flutter_android/webview_flutter_android.dart';
+import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
+import '../ar_image_tracking_page.dart'; // Ensure this import is correct
 
 class SanFranciscoScreen extends StatefulWidget {
   @override
@@ -11,19 +13,40 @@ class SanFranciscoScreen extends StatefulWidget {
 }
 
 class _SanFranciscoScreenState extends State<SanFranciscoScreen> {
-  late VideoPlayerController _controller;
+  late VideoPlayerController _videoController;
   late Future<void> _initializeVideoPlayerFuture;
-  List<dynamic>? artworks; // Make this nullable
+  List<dynamic>? artworks;
+  late WebViewController _webController;
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network(
+    _videoController = VideoPlayerController.network(
       'https://dms.licdn.com/playlist/vid/C5605AQEvMacH4az7Rg/mp4-720p-30fp-crf28/0/1614364548556?e=1701910800&v=beta&t=1q8dAEAgYXJ34JgT911Rjbp2paa7BGwKsq1jawE7BPE',
     );
-    _initializeVideoPlayerFuture = _controller.initialize();
-    _controller.setLooping(true);
+    _initializeVideoPlayerFuture = _videoController.initialize();
+    _videoController.setLooping(true);
     loadArtworkData();
+
+    late final PlatformWebViewControllerCreationParams params;
+    if (WebViewPlatform.instance is WebKitWebViewPlatform) {
+      params = WebKitWebViewControllerCreationParams(
+        allowsInlineMediaPlayback: true,
+        mediaTypesRequiringUserAction: const <PlaybackMediaTypes>{},
+      );
+    } else {
+      params = const PlatformWebViewControllerCreationParams();
+    }
+
+    _webController = WebViewController.fromPlatformCreationParams(params);
+    _webController
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..loadRequest(Uri.parse(
+          "https://lumalabs.ai/embed/e1316b43-d3bf-46c0-8d4d-db357176929d?mode=sparkles&background=%23ffffff&color=%23000000&showTitle=true&loadBg=true&logoPosition=bottom-left&infoPosition=bottom-right&cinematicVideo=undefined&showMenu=false"));
+
+    if (_webController.platform is AndroidWebViewController) {
+      AndroidWebViewController.enableDebugging(true);
+    }
   }
 
   Future<void> loadArtworkData() async {
@@ -39,7 +62,7 @@ class _SanFranciscoScreenState extends State<SanFranciscoScreen> {
 
   @override
   void dispose() {
-    _controller.dispose();
+    _videoController.dispose();
     super.dispose();
   }
 
@@ -47,7 +70,7 @@ class _SanFranciscoScreenState extends State<SanFranciscoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Explore San Francisco'),
+        title: const Text('Explore San Francisco'),
       ),
       body: Column(
         children: [
@@ -57,11 +80,9 @@ class _SanFranciscoScreenState extends State<SanFranciscoScreen> {
               borderRadius: BorderRadius.circular(15.0),
               child: Container(
                 height: 300,
-                child: WebView(
-                  initialUrl:
-                      "https://lumalabs.ai/embed/e1316b43-d3bf-46c0-8d4d-db357176929d?mode=sparkles&background=%23ffffff&color=%23000000&showTitle=true&loadBg=true&logoPosition=bottom-left&infoPosition=bottom-right&cinematicVideo=undefined&showMenu=false",
-                  javascriptMode: JavascriptMode.unrestricted,
-                ),
+                child: WebViewWidget(
+                    controller:
+                        _webController), // Updated to WebViewWidget// Updated to WebViewWidget
               ),
             ),
           ),
@@ -70,7 +91,7 @@ class _SanFranciscoScreenState extends State<SanFranciscoScreen> {
               future: _initializeVideoPlayerFuture,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
-                  if (_controller.value.isInitialized) {
+                  if (_videoController.value.isInitialized) {
                     return SingleChildScrollView(
                       child: Column(
                         children: [
@@ -110,11 +131,11 @@ class _SanFranciscoScreenState extends State<SanFranciscoScreen> {
                       ),
                     );
                   } else {
-                    return Center(
+                    return const Center(
                         child: Text('Error initializing video player.'));
                   }
                 } else {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
               },
             ),
@@ -124,15 +145,15 @@ class _SanFranciscoScreenState extends State<SanFranciscoScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
-            if (_controller.value.isPlaying) {
-              _controller.pause();
+            if (_videoController.value.isPlaying) {
+              _videoController.pause();
             } else {
-              _controller.play();
+              _videoController.play();
             }
           });
         },
         child: Icon(
-          _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+          _videoController.value.isPlaying ? Icons.pause : Icons.play_arrow,
         ),
       ),
     );
@@ -180,7 +201,6 @@ class ArtworkCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Center the title
               Align(
                 alignment: Alignment.center,
                 child: Text(
@@ -208,8 +228,7 @@ class ArtworkCard extends StatelessWidget {
                   fontSize: 14,
                   color: Colors.white,
                 ),
-                textAlign:
-                    TextAlign.center, // Center align the description if needed
+                textAlign: TextAlign.center,
               ),
             ],
           ),
