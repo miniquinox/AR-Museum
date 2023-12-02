@@ -49,69 +49,77 @@ class _SanFranciscoScreenState extends State<SanFranciscoScreen> {
       appBar: AppBar(
         title: Text('Explore San Francisco'),
       ),
-      body: FutureBuilder(
-        future: _initializeVideoPlayerFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            if (_controller.value.isInitialized) {
-              return SingleChildScrollView(
-                child: Column(
-                  children: [
-                    // Video Widget
-                    // AspectRatio(
-                    //   aspectRatio: _controller.value.aspectRatio,
-                    //   child: VideoPlayer(_controller),
-                    // ),
-                    Container(
-                      height: 300, // Reduced height
-                      child: WebView(
-                        initialUrl:
-                            "https://lumalabs.ai/embed/e1316b43-d3bf-46c0-8d4d-db357176929d?mode=sparkles&background=%23ffffff&color=%23000000&showTitle=true&loadBg=true&logoPosition=bottom-left&infoPosition=bottom-right&cinematicVideo=undefined&showMenu=false",
-                        javascriptMode: JavascriptMode.unrestricted,
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    if (artworks != null)
-                      for (var artwork in artworks!)
-                        ArtworkCard(
-                          imagePath: artwork['image'],
-                          title: artwork['title'],
-                          description: artwork['description'],
-                        ),
-                    Center(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const ImageDetectionPage()),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.orangeAccent,
-                          backgroundColor: Colors.black,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 12),
-                          textStyle: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        child: const Text(
-                          "Start your Adventure",
-                          style: TextStyle(color: Colors.orangeAccent),
-                        ),
-                      ),
-                    ),
-                  ],
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(15.0),
+              child: Container(
+                height: 300,
+                child: WebView(
+                  initialUrl:
+                      "https://lumalabs.ai/embed/e1316b43-d3bf-46c0-8d4d-db357176929d?mode=sparkles&background=%23ffffff&color=%23000000&showTitle=true&loadBg=true&logoPosition=bottom-left&infoPosition=bottom-right&cinematicVideo=undefined&showMenu=false",
+                  javascriptMode: JavascriptMode.unrestricted,
                 ),
-              );
-            } else {
-              return Center(child: Text('Error initializing video player.'));
-            }
-          } else {
-            return Center(child: CircularProgressIndicator());
-          }
-        },
+              ),
+            ),
+          ),
+          Expanded(
+            child: FutureBuilder(
+              future: _initializeVideoPlayerFuture,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (_controller.value.isInitialized) {
+                    return SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          SizedBox(height: 20),
+                          if (artworks != null)
+                            for (var artwork in artworks!)
+                              ArtworkCard(
+                                imagePath: artwork['image'],
+                                title: artwork['title'],
+                                description: artwork['description'],
+                              ),
+                          Center(
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ImageDetectionPage()),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                foregroundColor: Colors.orangeAccent,
+                                backgroundColor: Colors.black,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 12),
+                                textStyle: const TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                              child: const Text(
+                                "Start your Adventure",
+                                style: TextStyle(color: Colors.orangeAccent),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else {
+                    return Center(
+                        child: Text('Error initializing video player.'));
+                  }
+                } else {
+                  return Center(child: CircularProgressIndicator());
+                }
+              },
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
