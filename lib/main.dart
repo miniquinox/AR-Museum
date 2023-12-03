@@ -1,11 +1,14 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'SF.dart'; // Ensure this matches the file name of your San Francisco screen
-import 'Signup.dart'; // Ensure this matches the file name of your Signup screen
-import 'LumaAIModelScreen.dart'; // Ensure this matches the file name of your Luma AI screen
-// import 'package:my_flutter_project/login_screen.dart';
+import 'package:firebase_core/firebase_core.dart'; // Import Firebase core
+import 'SF.dart';
+import 'Signup.dart';
+import 'LumaAIModelScreen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding
+      .ensureInitialized(); // Ensure plugin services are initialized
+  await Firebase.initializeApp(); // Initialize Firebase
   runApp(const MyApp());
 }
 
@@ -58,10 +61,10 @@ class MainScreen extends StatelessWidget {
             const SizedBox(height: 8),
             const ArtworkCarousel(),
             const SizedBox(height: 8),
-            CreateArtCard(), // New card for signup screen
-            // const SizedBox(height: 8),
-            LumaAIModelCard(), // New card for Luma AI model screen
-            // const SizedBox(height: 8),
+            CreateArtCard(),
+            const SizedBox(height: 8),
+            LumaAIModelCard(),
+            const SizedBox(height: 8),
           ],
         ),
       ),

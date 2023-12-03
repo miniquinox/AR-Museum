@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyA9X0BEMaeO2xiTU01a_pSGU8Aq14N6jUg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>21274265339</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.davisProject</string>
+	<key>PROJECT_ID</key>
+	<string>ar-museum-optimiz3d</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ar-museum-optimiz3d.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:21274265339:ios:c7220f7a0b779f3a1c525e</string>
+</dict>
+</plist>

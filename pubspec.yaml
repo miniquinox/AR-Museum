@@ -32,11 +32,16 @@ dependencies:
     sdk: flutter
   camera: ^0.10.5+5  # Replace with the latest version
   arkit_plugin: ^1.0.7  # Replace with the latest version
-  vector_math: ^2.1.0-nullsafety.5
+  vector_math: ^2.1.4
   google_fonts: ^6.1.0  # Check for the latest version on pub.dev
   google_maps_flutter: ^2.5.0
-  video_player: ^2.2.14 # Use the latest version suitable for your Flutter SDK
+  video_player: ^2.8.1 # Use the latest version suitable for your Flutter SDK
   webview_flutter: ^4.4.2 # Use the latest version
+  firebase_core: ^2.24.0
+  firebase_auth: ^4.15.0
+  cloud_firestore: ^4.13.3
+  google_sign_in: ^6.1.6
+  sign_in_with_apple: ^5.0.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
