@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "21274265339",
+    "project_id": "ar-museum-optimiz3d",
+    "storage_bucket": "ar-museum-optimiz3d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:21274265339:android:cd63b93a28eb8bb11c525e",
+        "android_client_info": {
+          "package_name": "com.example.davis_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0-YxjosXdGOQ3Sz8ttxfbQJq7JILv-O8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
