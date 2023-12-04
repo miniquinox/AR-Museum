@@ -2,48 +2,68 @@
 
 ## About the Project
 
-The Artwork Discovery App is a mobile application designed to provide an immersive augmented reality (AR) experience, allowing users to explore and engage with a wide range of artworks. Utilizing AR technology, the app renders life-sized art installations in real-time, enabling users to visualize and interact with the art pieces in their own space.
+The Artwork Discovery App is an innovative mobile application that offers an immersive augmented reality (AR) experience for art enthusiasts. Using the latest AR technology, users can explore, engage with, and interact with a wide range of artworks in a virtual setting.
 
 ## Features
 
-- **Explore Artworks**: Users can browse a carousel of featured artworks, each with detailed descriptions to pique interest and engagement.
-- **Augmented Reality Experience**: The app offers a unique AR feature where users can place the artworks in their environment, experiencing the art as if it were physically present.
-- **Interactive Video Content**: Each artwork comes with an accompanying video, providing a deeper understanding of the art piece and its historical or cultural significance.
-- **User-Generated Content**: With the 'Create Project' feature, users can contribute their own art, making the app a platform for both discovery and exhibition.
+- **Explore Nearby Artworks**: Users can discover art in specific locations through an interactive 3D map.
+- **Augmented Reality Experience**: Experience life-sized art installations in real-time in your own environment.
+- **Interactive Video Content**: Gain deeper insights into the artworks with accompanying videos.
+- **User-Generated Content**: Artists can submit their art for potential inclusion in the app's monthly updates.
+- **Flexible Pricing Plans**: Choose from various pricing plans for different levels of content access.
 
 ## Screens
 
-- **Main Screen**: Showcases the carousel of available artworks and access to AR viewing.
-- **Artwork Detail Screen**: Provides detailed information about the artwork, including a rich description and video content.
-- **Create Project Screen**: Allows users to upload their art and descriptions, contributing to the app's collection.
+### Main Screen
+![IMG_7231](https://github.com/miniquinox/AR-Museum/assets/63688331/877e5cdb-f009-42fd-a26b-243a9bc4f1a8)
+The main screen displays the 'Explore Nearby Artworks' section and provides access to various app features.
+
+### Location Selection Screen
+![IMG_7234](https://github.com/miniquinox/AR-Museum/assets/63688331/06a4ee70-84fd-4376-941b-089f62f46168)
+This interactive 3D map shows specific locations where AR experiences are available.
+
+### Art Preview Screen
+![IMG_7235](https://github.com/miniquinox/AR-Museum/assets/63688331/97d8944f-360f-494d-8504-dbb1b162ec0c)
+Here, users can preview artworks before experiencing them in AR.
+
+### AR Experience Screen
+![IMG_7236](https://github.com/miniquinox/AR-Museum/assets/63688331/4d413a9f-f41e-4546-a4c3-1dc6af823e58)
+Point your device at specific images or objects to launch AR artworks.
+
+### Submit Your Own Art Screen
+![IMG_7233](https://github.com/miniquinox/AR-Museum/assets/63688331/af50cd8b-2c15-4d89-b1dc-6f58a364feff)
+A platform for artists to submit their work for review and potential inclusion in the app.
+
+### Pricing Plans Screen
+![Pricing Plans Screen](path/to/pricing_plans_screenshot.png)
+Details the various subscription options available to users.
 
 ## AR Functionality
 
-The app uses ARKit/ARCore for providing AR experiences, depending on the user's device capabilities. The AR feature allows users to place virtual 3D models of artworks in their environment, scaled to size, and interact with them in real-time.
+Utilizing ARKit/ARCore, the app provides a seamless AR experience, allowing the placement and interaction with 3D artwork models in real time.
 
 ## Setup and Installation
 
-To set up the app on your local machine:
-
-1. Clone the repository to your local machine.
-2. Open the project in your IDE of choice, and install all dependencies.
+1. Clone the repository to your machine.
+2. Open the project in your IDE and install dependencies.
 3. Build and run the app on an AR-capable device.
 
 ## Usage
 
-1. Launch the app and browse through the artwork carousel on the main screen.
-2. Select an artwork to view it in detail and to access the AR viewing feature.
-3. Use the 'Create Project' feature to upload and share your artwork with the community.
+- Explore the artwork carousel on the main screen.
+- Engage with AR experiences using the interactive 3D map.
+- Submit art through the 'Submit Your Own Art' feature.
+- Choose a suitable pricing plan for different levels of content access.
 
 ## Contributing
 
-We welcome contributions from the community. If you wish to contribute to the app, please fork the repository and submit a pull request.
+We welcome contributions! Fork the repository and submit a pull request with your changes.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+Licensed under the MIT License - see the LICENSE file for details.
 
 ## Acknowledgments
 
-- Thanks to all the artists and creators whose work has inspired the development of this app.
-- Special thanks to the open-source community for providing the tools and libraries that make this app possible.
+- Thanks to the artists and creators who inspired this app.
+- Gratitude to the open-source community for their tools and libraries.
