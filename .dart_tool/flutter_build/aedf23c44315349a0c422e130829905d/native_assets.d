@@ -1,1 +1,0 @@
- /Users/quino/Documents/GitHub/AR-Museum/.dart_tool/flutter_build/aedf23c44315349a0c422e130829905d/native_assets.yaml: 
