@@ -4,6 +4,7 @@ import 'SF.dart'; // Ensure this matches the file name of your San Francisco scr
 import 'Signup.dart'; // Ensure this matches the file name of your Signup screen
 import 'LumaAIModelScreen.dart'; // Ensure this matches the file name of your Luma AI screen
 // import 'package:my_flutter_project/login_screen.dart';
+import 'pricing.dart';
 
 void main() {
   runApp(const MyApp());
@@ -62,6 +63,7 @@ class MainScreen extends StatelessWidget {
             // const SizedBox(height: 8),
             LumaAIModelCard(), // New card for Luma AI model screen
             // const SizedBox(height: 8),
+            const PricingOptionCard(), // New card for Pricing screen
           ],
         ),
       ),
@@ -280,6 +282,29 @@ class CityArtworkCard extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class PricingOptionCard extends StatelessWidget {
+  const PricingOptionCard({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => PricingScreen()),
+      ),
+      child: frostedGlassCard(
+        child: ListTile(
+          title: const Text('Explore Pricing Plans',
+              style: TextStyle(color: Colors.white)),
+          subtitle: const Text('Find the best plan for your experience!',
+              style: TextStyle(color: Colors.white70)),
+          leading: const Icon(Icons.monetization_on, color: Colors.white),
         ),
       ),
     );
