@@ -15,27 +15,27 @@ The Artwork Discovery App is an innovative mobile application that offers an imm
 ## Screens
 
 ### Main Screen
-![IMG_7231](https://github.com/miniquinox/AR-Museum/assets/63688331/877e5cdb-f009-42fd-a26b-243a9bc4f1a8)
+<img src="https://github.com/miniquinox/AR-Museum/assets/63688331/877e5cdb-f009-42fd-a26b-243a9bc4f1a8" width="200" alt="Main Screen">
 The main screen displays the 'Explore Nearby Artworks' section and provides access to various app features.
 
 ### Location Selection Screen
-![IMG_7234](https://github.com/miniquinox/AR-Museum/assets/63688331/06a4ee70-84fd-4376-941b-089f62f46168)
+<img src="https://github.com/miniquinox/AR-Museum/assets/63688331/06a4ee70-84fd-4376-941b-089f62f46168" width="200" alt="Location Selection Screen">
 This interactive 3D map shows specific locations where AR experiences are available.
 
 ### Art Preview Screen
-![IMG_7235](https://github.com/miniquinox/AR-Museum/assets/63688331/97d8944f-360f-494d-8504-dbb1b162ec0c)
+<img src="https://github.com/miniquinox/AR-Museum/assets/63688331/97d8944f-360f-494d-8504-dbb1b162ec0c" width="200" alt="Art Preview Screen">
 Here, users can preview artworks before experiencing them in AR.
 
 ### AR Experience Screen
-![IMG_7236](https://github.com/miniquinox/AR-Museum/assets/63688331/4d413a9f-f41e-4546-a4c3-1dc6af823e58)
+<img src="https://github.com/miniquinox/AR-Museum/assets/63688331/4d413a9f-f41e-4546-a4c3-1dc6af823e58" width="200" alt="AR Experience Screen">
 Point your device at specific images or objects to launch AR artworks.
 
 ### Submit Your Own Art Screen
-![IMG_7233](https://github.com/miniquinox/AR-Museum/assets/63688331/af50cd8b-2c15-4d89-b1dc-6f58a364feff)
+<img src="https://github.com/miniquinox/AR-Museum/assets/63688331/af50cd8b-2c15-4d89-b1dc-6f58a364feff" width="200" alt="Submit Your Own Art Screen">
 A platform for artists to submit their work for review and potential inclusion in the app.
 
 ### Pricing Plans Screen
-![Pricing Plans Screen](path/to/pricing_plans_screenshot.png)
+<img src="https://github.com/miniquinox/AR-Museum/assets/63688331/0895ba46-2791-45e1-ad7a-c3104e974462" width="200" alt="Submit Your Own Art Screen">
 Details the various subscription options available to users.
 
 ## AR Functionality
