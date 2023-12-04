@@ -36,7 +36,7 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Discover vibrant art and landmarks'),
+        title: const Text('Augmented Reality Museum'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -111,7 +111,7 @@ class CreateArtCard extends StatelessWidget {
       ),
       child: frostedGlassCard(
         child: ListTile(
-          title: const Text('Create Your Own Art',
+          title: const Text('Submit Your Own Art',
               style: TextStyle(color: Colors.white)),
           subtitle: const Text('Tap here to get started!',
               style: TextStyle(color: Colors.white70)),
