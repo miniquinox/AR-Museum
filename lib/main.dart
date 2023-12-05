@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'SF.dart'; // Ensure this matches the file name of your San Francisco screen
 import 'Signup.dart'; // Ensure this matches the file name of your Signup screen
 import 'LumaAIModelScreen.dart'; // Ensure this matches the file name of your Luma AI screen
-// import 'package:my_flutter_project/login_screen.dart';
 import 'pricing.dart';
+import 'particles.dart'; // Import your particles.dart file
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.deepPurple,
         scaffoldBackgroundColor: const Color(0xFF121212),
         appBarTheme: const AppBarTheme(
-          color: Colors.deepPurple,
+          color: Color(0xFF121212),
         ),
       ),
       home: const MainScreen(),
@@ -35,39 +35,87 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Augmented Reality Museum'),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 16),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
-                'Explore Nearby Artworks',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  color: Colors.white,
+      body: Stack(
+        children: [
+          const Positioned.fill(child: ParticleWidget()), // Particle effect
+          _buildShineEffect(), // Shine of light effect
+          Column(
+            // Ensures that the app bar and content are on top of the effects
+            children: [
+              _buildCustomAppBar(),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      SizedBox(
+                          height:
+                              20), // Adjust the space for the custom app bar if needed
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Text(
+                          'Explore Nearby Artworks',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      ArtworkCarousel(),
+                      SizedBox(height: 8),
+                      CreateArtCard(),
+                      LumaAIModelCard(),
+                      PricingOptionCard(),
+                      // Add more widgets here
+                    ],
+                  ),
                 ),
-                textAlign: TextAlign.left,
               ),
-            ),
-            const SizedBox(height: 8),
-            const ArtworkCarousel(),
-            const SizedBox(height: 8),
-            CreateArtCard(), // New card for signup screen
-            // const SizedBox(height: 8),
-            LumaAIModelCard(), // New card for Luma AI model screen
-            // const SizedBox(height: 8),
-            const PricingOptionCard(), // New card for Pricing screen
-          ],
-        ),
+            ],
+          ),
+        ],
       ),
       bottomNavigationBar: _buildBottomNavigationBar(context),
+    );
+  }
+
+  Widget _buildCustomAppBar() {
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        child: Center(
+          // Center the title text
+          child: const Text(
+            'Augmented Reality Museum',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 25,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildShineEffect() {
+    return Positioned.fill(
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: RadialGradient(
+            center: Alignment(-0.8, -0.8), // Position of the light source
+            radius: 1.0, // Radius of the effect
+            colors: [
+              Colors.white.withOpacity(0.3), // Brightness of the shine
+              Colors.transparent,
+            ],
+            stops: [0.0, 0.6], // Spread of the shine
+          ),
+        ),
+      ),
     );
   }
 
@@ -110,12 +158,12 @@ class CreateArtCard extends StatelessWidget {
         MaterialPageRoute(builder: (context) => SignupScreen()),
       ),
       child: frostedGlassCard(
-        child: ListTile(
-          title: const Text('Submit Your Own Art',
+        child: const ListTile(
+          title: Text('Submit Your Own Art',
               style: TextStyle(color: Colors.white)),
-          subtitle: const Text('Tap here to get started!',
+          subtitle: Text('Tap here to get started!',
               style: TextStyle(color: Colors.white70)),
-          leading: const Icon(Icons.add, color: Colors.white),
+          leading: Icon(Icons.add, color: Colors.white),
         ),
       ),
     );
@@ -133,12 +181,11 @@ class LumaAIModelCard extends StatelessWidget {
         MaterialPageRoute(builder: (context) => LumaAIModelScreen()),
       ),
       child: frostedGlassCard(
-        child: ListTile(
-          title: const Text('View AI 3D Map',
-              style: TextStyle(color: Colors.white)),
-          subtitle: const Text('Find Artwork nearby!',
+        child: const ListTile(
+          title: Text('View AI 3D Map', style: TextStyle(color: Colors.white)),
+          subtitle: Text('Find Artwork nearby!',
               style: TextStyle(color: Colors.white70)),
-          leading: const Icon(Icons.threed_rotation, color: Colors.white),
+          leading: Icon(Icons.threed_rotation, color: Colors.white),
         ),
       ),
     );
@@ -299,12 +346,12 @@ class PricingOptionCard extends StatelessWidget {
         MaterialPageRoute(builder: (context) => PricingScreen()),
       ),
       child: frostedGlassCard(
-        child: ListTile(
-          title: const Text('Explore Pricing Plans',
+        child: const ListTile(
+          title: Text('Explore Pricing Plans',
               style: TextStyle(color: Colors.white)),
-          subtitle: const Text('Find the best plan for your experience!',
+          subtitle: Text('Find the best plan for your experience!',
               style: TextStyle(color: Colors.white70)),
-          leading: const Icon(Icons.monetization_on, color: Colors.white),
+          leading: Icon(Icons.monetization_on, color: Colors.white),
         ),
       ),
     );
