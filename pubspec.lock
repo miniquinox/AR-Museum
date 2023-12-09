@@ -550,7 +550,7 @@ packages:
     source: hosted
     version: "4.4.2"
   webview_flutter_android:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: webview_flutter_android
       sha256: "8326ee235f87605a2bfc444a4abc897f4abc78d83f054ba7d3d1074ce82b4fbf"
@@ -566,7 +566,7 @@ packages:
     source: hosted
     version: "2.8.0"
   webview_flutter_wkwebview:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: webview_flutter_wkwebview
       sha256: accdaaa49a2aca2dc3c3230907988954cdd23fed0a19525d6c9789d380f4dc76

@@ -13,7 +13,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MainScreen extends StatelessWidget {
-  const MainScreen({Key? key}) : super(key: key);
+  const MainScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,11 +45,11 @@ class MainScreen extends StatelessWidget {
             // Ensures that the app bar and content are on top of the effects
             children: [
               _buildCustomAppBar(),
-              Expanded(
+              const Expanded(
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       SizedBox(
                           height:
                               20), // Adjust the space for the custom app bar if needed
@@ -85,12 +85,12 @@ class MainScreen extends StatelessWidget {
   }
 
   Widget _buildCustomAppBar() {
-    return SafeArea(
+    return const SafeArea(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         child: Center(
           // Center the title text
-          child: const Text(
+          child: Text(
             'Augmented Reality Museum',
             style: TextStyle(
               fontWeight: FontWeight.bold,
@@ -108,13 +108,13 @@ class MainScreen extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           gradient: RadialGradient(
-            center: Alignment(-0.8, -0.8), // Position of the light source
+            center: const Alignment(-0.8, -0.8), // Position of the light source
             radius: 1.0, // Radius of the effect
             colors: [
               Colors.white.withOpacity(0.3), // Brightness of the shine
               Colors.transparent,
             ],
-            stops: [0.0, 0.6], // Spread of the shine
+            stops: const [0.0, 0.6], // Spread of the shine
           ),
         ),
       ),
@@ -150,7 +150,7 @@ class MainScreen extends StatelessWidget {
 }
 
 class CreateArtCard extends StatelessWidget {
-  const CreateArtCard({Key? key}) : super(key: key);
+  const CreateArtCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -173,7 +173,7 @@ class CreateArtCard extends StatelessWidget {
 }
 
 class LumaAIModelCard extends StatelessWidget {
-  const LumaAIModelCard({Key? key}) : super(key: key);
+  const LumaAIModelCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -226,7 +226,7 @@ Widget frostedGlassCard({required Widget child}) {
 }
 
 class ArtworkCarousel extends StatelessWidget {
-  const ArtworkCarousel({Key? key}) : super(key: key);
+  const ArtworkCarousel({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -257,7 +257,6 @@ class ArtworkCarousel extends StatelessWidget {
               );
             },
           ),
-          // ... other CityArtworkCards ...
         ],
       ),
     );
@@ -271,12 +270,12 @@ class CityArtworkCard extends StatelessWidget {
   final VoidCallback onTap;
 
   const CityArtworkCard({
-    Key? key,
+    super.key,
     required this.imagePath,
     required this.cityName,
     required this.subtitle,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -338,7 +337,7 @@ class CityArtworkCard extends StatelessWidget {
 }
 
 class PricingOptionCard extends StatelessWidget {
-  const PricingOptionCard({Key? key}) : super(key: key);
+  const PricingOptionCard({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -7,6 +7,8 @@ import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 import '../ar_image_tracking_page.dart'; // Ensure this import is correct
 
 class SanFranciscoScreen extends StatefulWidget {
+  const SanFranciscoScreen({super.key});
+
   @override
   _SanFranciscoScreenState createState() => _SanFranciscoScreenState();
 }
@@ -64,7 +66,7 @@ class _SanFranciscoScreenState extends State<SanFranciscoScreen> {
             padding: const EdgeInsets.all(8.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(15.0),
-              child: Container(
+              child: SizedBox(
                 height: 300,
                 child: WebViewWidget(
                     controller:
@@ -76,7 +78,7 @@ class _SanFranciscoScreenState extends State<SanFranciscoScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   if (artworks != null)
                     for (var artwork in artworks!)
                       ArtworkCard(
@@ -97,8 +99,8 @@ class _SanFranciscoScreenState extends State<SanFranciscoScreen> {
             MaterialPageRoute(builder: (context) => const ImageDetectionPage()),
           );
         },
-        child: const Icon(Icons.camera_alt),
-        backgroundColor: Colors.amber[600], // Gold color
+        backgroundColor: Colors.amber[600],
+        child: const Icon(Icons.camera_alt), // Gold color
       ),
     );
   }
@@ -110,11 +112,11 @@ class ArtworkCard extends StatelessWidget {
   final String description;
 
   const ArtworkCard({
-    Key? key,
+    super.key,
     required this.imagePath,
     required this.title,
     required this.description,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
