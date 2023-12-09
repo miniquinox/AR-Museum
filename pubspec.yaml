@@ -38,6 +38,7 @@ dependencies:
   video_player: ^2.2.14 # Use the latest version suitable for your Flutter SDK
   webview_flutter: ^4.4.2 # Use the latest version
   sensors: ^2.0.3
+  flutter_signin_button: ^2.0.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

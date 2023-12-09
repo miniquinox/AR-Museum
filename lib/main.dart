@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'SF.dart'; // Ensure this matches the file name of your San Francisco screen
@@ -5,6 +6,7 @@ import 'Signup.dart'; // Ensure this matches the file name of your Signup screen
 import 'LumaAIModelScreen.dart'; // Ensure this matches the file name of your Luma AI screen
 import 'pricing.dart';
 import 'particles.dart'; // Import your particles.dart file
+import 'splash.dart'; // Import your splash.dart file
 
 void main() {
   runApp(const MyApp());
@@ -24,7 +26,7 @@ class MyApp extends StatelessWidget {
           color: Color(0xFF121212),
         ),
       ),
-      home: const MainScreen(),
+      home: SplashScreen(), // Use SplashScreen from splash.dart
     );
   }
 }
