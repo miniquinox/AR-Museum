@@ -57,7 +57,7 @@ class _SplashScreen extends State<SplashScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Image.asset('images/AR_Museum_logo.png',
+        title: Image.asset('images/ARMuseum_logo.png',
             height: 60, fit: BoxFit.cover),
         centerTitle: true,
       ),
