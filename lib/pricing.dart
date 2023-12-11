@@ -78,7 +78,7 @@ class PerksCard extends StatelessWidget {
           stops: [0.6, 0.9],
           colors: [
             Colors.orange,
-            Colors.yellow,
+            Color.fromARGB(255, 255, 230, 0),
           ],
         ),
         boxShadow: [
@@ -168,7 +168,8 @@ class PerkItem extends StatelessWidget {
                 Text(
                   description,
                   style: const TextStyle(
-                    color: Colors.white70,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
                     fontSize: 12,
                   ),
                 ),

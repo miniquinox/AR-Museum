@@ -45,7 +45,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   webview_flutter_android: ^3.12.1
   webview_flutter_wkwebview: ^3.9.4
-
+  font_awesome_flutter: ^9.2.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -80,6 +81,7 @@ flutter:
     - images/golden_gate.jpeg
     - images/central_park.jpeg
     - images/keyboard.png
+    - AR_Museum_logo.png
     - videos/demo.mp4
     - assets/SF.json
     - images/SF/Trex.jpeg

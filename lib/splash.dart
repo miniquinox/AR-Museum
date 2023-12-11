@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
-// import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'main.dart';
 import 'particles.dart'; // Import the particles file
 
@@ -13,12 +13,19 @@ class SplashScreen extends StatefulWidget {
   _SplashScreen createState() => _SplashScreen();
 }
 
-class _SplashScreen extends State<SplashScreen> {
+class _SplashScreen extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
   late WebViewController _webController;
+  late AnimationController _controller; // Declare _controller here
 
   @override
   void initState() {
     super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    )..repeat(reverse: true);
+
     late final PlatformWebViewControllerCreationParams params;
     if (WebViewPlatform.instance is WebKitWebViewPlatform) {
       params = WebKitWebViewControllerCreationParams(
@@ -41,10 +48,17 @@ class _SplashScreen extends State<SplashScreen> {
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('AR Museum'),
+        title: Image.asset('images/AR_Museum_logo.png',
+            height: 60, fit: BoxFit.cover),
         centerTitle: true,
       ),
       body: Stack(
@@ -102,7 +116,7 @@ class _SplashScreen extends State<SplashScreen> {
                     ],
                   ),
                   child: ElevatedButton.icon(
-                    icon: const Icon(Icons.login),
+                    icon: const Icon(FontAwesomeIcons.google, size: 20.0),
                     label: const Text('Sign in with Google'),
                     onPressed: () {
                       // Implement Google sign-in logic
@@ -112,7 +126,7 @@ class _SplashScreen extends State<SplashScreen> {
                       backgroundColor: Colors.blueAccent, // Text color
                       shape: const StadiumBorder(), // Rounded corners
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 12),
+                          horizontal: 20, vertical: 12),
                       textStyle: const TextStyle(fontSize: 18),
                     ),
                   ),
@@ -146,7 +160,7 @@ class _SplashScreen extends State<SplashScreen> {
                       backgroundColor: Colors.black, // Text color
                       shape: const StadiumBorder(), // Rounded corners
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 12),
+                          horizontal: 20, vertical: 12),
                       textStyle: const TextStyle(fontSize: 18),
                     ),
                   ),
@@ -160,21 +174,41 @@ class _SplashScreen extends State<SplashScreen> {
         padding: const EdgeInsets.only(right: 30.0),
         child: Align(
           alignment: Alignment.bottomRight,
-          child: FloatingActionButton(
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const MainScreen()),
+          child: AnimatedBuilder(
+            animation: _controller,
+            builder: (context, child) {
+              return Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color.fromARGB(255, 253, 173, 81).withOpacity(0.5),
+                      spreadRadius:
+                          (1 + _controller.value * 5), // animate spread radius
+                      blurRadius:
+                          (10 + _controller.value * 3), // animate blur radius
+                      offset: const Offset(0, 0),
+                    ),
+                  ],
+                ),
+                child: child,
               );
-            }, // Smaller icon
-            backgroundColor: Colors.purpleAccent,
-            mini: true,
-            child: const Icon(Icons.skip_next, size: 24), // Smaller button
+            },
+            child: FloatingActionButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MainScreen()),
+                );
+              },
+              backgroundColor: const Color.fromARGB(255, 253, 173, 81),
+              mini: true,
+              child: const Icon(Icons.skip_next, size: 24),
+            ),
           ),
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation
-          .miniStartFloat, // Position to the bottom left
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniStartFloat,
     );
   }
 }
