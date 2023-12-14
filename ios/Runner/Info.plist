@@ -7,6 +7,18 @@
 	<string>This app uses the camera for AR features</string>
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
+
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.21274265339-u9o55io80u8vsadvmt1uh0mmvc59vcho</string>
+			</array>
+		</dict>
+	</array>
 	
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
