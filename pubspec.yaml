@@ -76,28 +76,10 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - images/earth.jpg
+    - images/
+    - images/SF/
     # - assets/MyModel.glb
-    - images/sanFrancisco.jpeg
-    - images/golden_gate.png
-    - images/madrid.png
-    - images/nyc.png
-    - images/code.png
-    - images/golden_gate.jpeg
-    - images/central_park.jpeg
-    - images/keyboard.png
-    - images/ARMuseum_logo.png
-    - videos/demo.mp4
-    - assets/SF.json
-    - images/SF/Trex.jpeg
-    - images/SF/Mammoth.jpeg
-    - images/SF/Mask.jpeg
-    - images/SF/Porsche.jpeg
-    - images/SF/Tiger.jpeg
-    # - assets/MyModel2.glb
-    - assets/Porsche2.glb
-    - assets/cat.glb
-    - assets/scene.gltf
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
