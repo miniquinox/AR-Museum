@@ -1,14 +1,20 @@
-import 'dart:async';
 import 'dart:ui';
+import 'package:davis_project/auth/auth_guard.dart';
+import 'package:davis_project/auth/auth_service.dart';
+import 'package:davis_project/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'SF.dart'; // Ensure this matches the file name of your San Francisco screen
 import 'Signup.dart'; // Ensure this matches the file name of your Signup screen
 import 'LumaAIModelScreen.dart'; // Ensure this matches the file name of your Luma AI screen
 import 'pricing.dart';
 import 'particles.dart'; // Import your particles.dart file
-import 'splash.dart'; // Import your splash.dart file
 
-void main() {
+void main() async {
+  // initialize firebase
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  AuthService.instance;
   runApp(const MyApp());
 }
 
@@ -26,7 +32,7 @@ class MyApp extends StatelessWidget {
           color: Color(0xFF121212),
         ),
       ),
-      home: SplashScreen(), // Use SplashScreen from splash.dart
+      home: const AuthGaurdPage(), // Use SplashScreen from splash.dart
     );
   }
 }
