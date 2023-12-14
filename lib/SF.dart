@@ -1,31 +1,25 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:video_player/video_player.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 import '../ar_image_tracking_page.dart'; // Ensure this import is correct
 
 class SanFranciscoScreen extends StatefulWidget {
+  const SanFranciscoScreen({super.key});
+
   @override
   _SanFranciscoScreenState createState() => _SanFranciscoScreenState();
 }
 
 class _SanFranciscoScreenState extends State<SanFranciscoScreen> {
-  late VideoPlayerController _videoController;
-  late Future<void> _initializeVideoPlayerFuture;
   List<dynamic>? artworks;
   late WebViewController _webController;
 
   @override
   void initState() {
     super.initState();
-    _videoController = VideoPlayerController.network(
-      'https://dms.licdn.com/playlist/vid/C5605AQEvMacH4az7Rg/mp4-720p-30fp-crf28/0/1614364548556?e=1701910800&v=beta&t=1q8dAEAgYXJ34JgT911Rjbp2paa7BGwKsq1jawE7BPE',
-    );
-    _initializeVideoPlayerFuture = _videoController.initialize();
-    _videoController.setLooping(true);
     loadArtworkData();
 
     late final PlatformWebViewControllerCreationParams params;
@@ -61,12 +55,6 @@ class _SanFranciscoScreenState extends State<SanFranciscoScreen> {
   }
 
   @override
-  void dispose() {
-    _videoController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -78,7 +66,7 @@ class _SanFranciscoScreenState extends State<SanFranciscoScreen> {
             padding: const EdgeInsets.all(8.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(15.0),
-              child: Container(
+              child: SizedBox(
                 height: 300,
                 child: WebViewWidget(
                     controller:
@@ -87,74 +75,32 @@ class _SanFranciscoScreenState extends State<SanFranciscoScreen> {
             ),
           ),
           Expanded(
-            child: FutureBuilder(
-              future: _initializeVideoPlayerFuture,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  if (_videoController.value.isInitialized) {
-                    return SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          SizedBox(height: 20),
-                          if (artworks != null)
-                            for (var artwork in artworks!)
-                              ArtworkCard(
-                                imagePath: artwork['image'],
-                                title: artwork['title'],
-                                description: artwork['description'],
-                              ),
-                          Center(
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const ImageDetectionPage()),
-                                );
-                              },
-                              style: ElevatedButton.styleFrom(
-                                foregroundColor: Colors.orangeAccent,
-                                backgroundColor: Colors.black,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 12),
-                                textStyle: const TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              ),
-                              child: const Text(
-                                "Start your Adventure",
-                                style: TextStyle(color: Colors.orangeAccent),
-                              ),
-                            ),
-                          ),
-                        ],
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  if (artworks != null)
+                    for (var artwork in artworks!)
+                      ArtworkCard(
+                        imagePath: artwork['image'],
+                        title: artwork['title'],
+                        description: artwork['description'],
                       ),
-                    );
-                  } else {
-                    return const Center(
-                        child: Text('Error initializing video player.'));
-                  }
-                } else {
-                  return const Center(child: CircularProgressIndicator());
-                }
-              },
+                ],
+              ),
             ),
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          setState(() {
-            if (_videoController.value.isPlaying) {
-              _videoController.pause();
-            } else {
-              _videoController.play();
-            }
-          });
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const ImageDetectionPage()),
+          );
         },
-        child: Icon(
-          _videoController.value.isPlaying ? Icons.pause : Icons.play_arrow,
-        ),
+        backgroundColor: Colors.amber[600],
+        child: const Icon(Icons.camera_alt), // Gold color
       ),
     );
   }
@@ -166,11 +112,11 @@ class ArtworkCard extends StatelessWidget {
   final String description;
 
   const ArtworkCard({
-    Key? key,
+    super.key,
     required this.imagePath,
     required this.title,
     required this.description,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
