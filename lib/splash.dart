@@ -1,3 +1,5 @@
+import 'package:davis_project/auth/auth_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
@@ -118,8 +120,23 @@ class _SplashScreen extends State<SplashScreen>
                   child: ElevatedButton.icon(
                     icon: const Icon(FontAwesomeIcons.google, size: 20.0),
                     label: const Text('Sign in with Google'),
-                    onPressed: () {
-                      // Implement Google sign-in logic
+                    onPressed: () async {
+                      User? user =
+                          await AuthService.instance.signUpWithGoogle();
+                      if (user != null && mounted) {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MainScreen(),
+                          ),
+                        );
+                      } else if (mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Sign in failed'),
+                          ),
+                        );
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
