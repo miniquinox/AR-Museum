@@ -78,7 +78,7 @@ flutter:
   assets:
     - images/
     - images/SF/
-    # - assets/MyModel.glb
+    - assets/
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

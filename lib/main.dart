@@ -242,7 +242,7 @@ class ArtworkCarousel extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         children: [
           CityArtworkCard(
-            imagePath: 'images/Golden_gate.jpeg',
+            imagePath: 'images/golden_gate.jpeg',
             cityName: 'San Francisco',
             subtitle: 'Explore maps',
             onTap: () {
