@@ -9,6 +9,7 @@ import 'Signup.dart'; // Ensure this matches the file name of your Signup screen
 import 'LumaAIModelScreen.dart'; // Ensure this matches the file name of your Luma AI screen
 import 'pricing.dart';
 import 'particles.dart'; // Import your particles.dart file
+import 'roadmap.dart';
 
 void main() async {
   // initialize firebase
@@ -77,6 +78,7 @@ class MainScreen extends StatelessWidget {
                       CreateArtCard(),
                       LumaAIModelCard(),
                       PricingOptionCard(),
+                      RoadmapOptionCard()
                       // Add more widgets here
                     ],
                   ),
@@ -359,6 +361,30 @@ class PricingOptionCard extends StatelessWidget {
           subtitle: Text('Find the best plan for your experience!',
               style: TextStyle(color: Colors.white70)),
           leading: Icon(Icons.monetization_on, color: Colors.white),
+        ),
+      ),
+    );
+  }
+}
+
+class RoadmapOptionCard extends StatelessWidget {
+  const RoadmapOptionCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                RoadmapScreen()), // Assuming your roadmap screen class is named RoadmapScreen
+      ),
+      child: frostedGlassCard(
+        child: const ListTile(
+          title: Text('View Roadmap', style: TextStyle(color: Colors.white)),
+          subtitle: Text('See the steps to success!',
+              style: TextStyle(color: Colors.white70)),
+          leading: Icon(Icons.map, color: Colors.white),
         ),
       ),
     );
