@@ -44,6 +44,7 @@ dependencies:
   sign_in_with_apple: ^5.0.0
   sensors: ^2.0.3
   flutter_signin_button: ^2.0.0
+  flutter_launcher_icons: ^0.13.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -52,6 +53,24 @@ dependencies:
   webview_flutter_wkwebview: ^3.9.4
   font_awesome_flutter: ^9.2.0
   
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "images/AR_Museum_icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "images/AR_Museum_icon.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "images/AR_Museum_icon.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "images/AR_Museum_icon.png"
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -79,7 +98,6 @@ flutter:
     - images/
     - images/SF/
     - assets/
-    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
