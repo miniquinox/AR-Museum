@@ -11,10 +11,7 @@ import 'LumaAIModelScreen.dart';
 import 'pricing.dart';
 import 'particles.dart';
 import 'roadmap.dart';
-
-// Global Variables
-// bool isPurchaseComplete = false;
-// DateTime? purchaseTime;
+import 'NYC.dart';
 
 void main() async {
   // initialize firebase
@@ -255,7 +252,7 @@ class ArtworkCarousel extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SanFranciscoScreen()),
+                MaterialPageRoute(builder: (context) => SFScreen()),
               );
             },
           ),
@@ -277,7 +274,7 @@ class ArtworkCarousel extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SanFranciscoScreen()),
+                MaterialPageRoute(builder: (context) => NYCScreen()),
               );
             },
           ),
