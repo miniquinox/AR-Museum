@@ -45,13 +45,14 @@ dependencies:
   sensors: ^2.0.3
   flutter_signin_button: ^2.0.0
   flutter_launcher_icons: ^0.13.1
+  flutter_stripe: ^10.0.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   webview_flutter_android: ^3.12.1
   webview_flutter_wkwebview: ^3.9.4
-  font_awesome_flutter: ^9.2.0
+  # font_awesome_flutter: ^10.6.0
   
 flutter_launcher_icons:
   android: "launcher_icon"
@@ -97,6 +98,7 @@ flutter:
   assets:
     - images/
     - images/SF/
+    - images/Sevilla/
     - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see

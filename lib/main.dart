@@ -4,12 +4,17 @@ import 'package:davis_project/auth/auth_service.dart';
 import 'package:davis_project/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'SF.dart'; // Ensure this matches the file name of your San Francisco screen
-import 'Signup.dart'; // Ensure this matches the file name of your Signup screen
-import 'LumaAIModelScreen.dart'; // Ensure this matches the file name of your Luma AI screen
+import 'SF.dart';
+import 'Sevilla.dart';
+import 'Signup.dart';
+import 'LumaAIModelScreen.dart';
 import 'pricing.dart';
-import 'particles.dart'; // Import your particles.dart file
+import 'particles.dart';
 import 'roadmap.dart';
+
+// Global Variables
+// bool isPurchaseComplete = false;
+// DateTime? purchaseTime;
 
 void main() async {
   // initialize firebase
@@ -251,6 +256,17 @@ class ArtworkCarousel extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => SanFranciscoScreen()),
+              );
+            },
+          ),
+          CityArtworkCard(
+            imagePath: 'images/sevilla.jpeg',
+            cityName: 'Sevilla',
+            subtitle: 'Spanish charm with history that matters',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SevillaScreen()),
               );
             },
           ),
