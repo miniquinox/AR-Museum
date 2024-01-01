@@ -20,8 +20,7 @@ class _ImageDetectionPageState extends State<ImageDetectionPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar:
-            AppBar(title: const Text('Image Detection and 3D Model Loading')),
+        appBar: AppBar(title: const Text('Find the landmark!')),
         body: ARKitSceneView(
           detectionImagesGroupName:
               'AR Resources', // This should match the AR Resources group name in Xcode.
@@ -52,7 +51,7 @@ class _ImageDetectionPageState extends State<ImageDetectionPage> {
     // For this example, we are loading a .glb file
     return ARKitGltfNode(
       assetType: AssetType.flutterAsset,
-      // url: 'assets/scene.gltf', // Replace with your actual .glb asset path
+      // url: 'assets/fountain.glb', // Replace with your actual .glb asset path
       url: 'assets/Porsche2.glb', // Replace with your actual .glb asset path
       scale: vector.Vector3.all(0.1), // Adjust the scale if necessary
       position: position,

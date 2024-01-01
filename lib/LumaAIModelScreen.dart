@@ -45,7 +45,7 @@ class _LumaAIModelScreenState extends State<LumaAIModelScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Luma AI 3D Model'),
+        title: const Text('Interactive 3D Map'),
       ),
       body: WebViewWidget(controller: _controller),
     );

@@ -51,18 +51,14 @@ class MainScreen extends StatelessWidget {
           const Positioned.fill(child: ParticleWidget()), // Particle effect
           _buildShineEffect(), // Shine of light effect
           Column(
-            // Ensures that the app bar and content are on top of the effects
             children: [
               _buildCustomAppBar(),
-              const Expanded(
+              Expanded(
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
-                          height:
-                              20), // Adjust the space for the custom app bar if needed
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16.0),
                         child: Text(
                           'Explore Nearby Artworks',
@@ -74,13 +70,28 @@ class MainScreen extends StatelessWidget {
                           textAlign: TextAlign.left,
                         ),
                       ),
-                      SizedBox(height: 8),
-                      ArtworkCarousel(),
-                      SizedBox(height: 8),
-                      CreateArtCard(),
-                      LumaAIModelCard(),
-                      PricingOptionCard(),
-                      RoadmapOptionCard()
+                      const SizedBox(height: 8),
+                      _buildExhibitionsCarousel(),
+                      const SizedBox(height: 16), // Space between sections
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Text(
+                          'Public City-Sponsored Exhibitions',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      const ArtworkCarousel(),
+                      const SizedBox(height: 8),
+                      const CreateArtCard(),
+                      const LumaAIModelCard(),
+                      const PricingOptionCard(),
+                      const RoadmapOptionCard(),
                       // Add more widgets here
                     ],
                   ),
@@ -94,12 +105,56 @@ class MainScreen extends StatelessWidget {
     );
   }
 
+  Widget _buildExhibitionsCarousel() {
+    // Placeholder for exhibitions data
+    List<Exhibition> exhibitions = [
+      Exhibition(
+        imagePath: 'images/starry_night.png',
+        title: "It's Pablo-matic",
+        dateRange: 'Jan 1st - Feb 28th',
+        description: 'Picasso According to Hannah Gadsby',
+        category: 'Painting',
+        buttonColor: Colors.blue // Specify the color here
+        ,
+      ),
+      Exhibition(
+        imagePath: 'images/monalisa.png',
+        title: "Terminator Monalisa",
+        dateRange: 'Mar 1st - Apr 30th',
+        description: 'Monalisa According to Arnold Schwarzenegger',
+        category: 'Sculpture',
+        buttonColor: Colors.orange // Specify the color here
+        ,
+      ),
+      Exhibition(
+        imagePath: 'images/transformer.png',
+        title: "Real Sized Transformer",
+        dateRange: 'May 2nd - May 28th',
+        description: 'Optimus Prime in the flesh',
+        category: 'Gallery',
+        buttonColor: Colors.purple // Specify the color here
+        ,
+      ),
+      // Add more exhibitions here
+    ];
+
+    return SizedBox(
+      height: 130,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: exhibitions.length,
+        itemBuilder: (context, index) {
+          return ExhibitionCard(exhibition: exhibitions[index]);
+        },
+      ),
+    );
+  }
+
   Widget _buildCustomAppBar() {
     return const SafeArea(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         child: Center(
-          // Center the title text
           child: Text(
             'Augmented Reality Museum',
             style: TextStyle(
@@ -118,13 +173,13 @@ class MainScreen extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           gradient: RadialGradient(
-            center: const Alignment(-0.8, -0.8), // Position of the light source
-            radius: 1.0, // Radius of the effect
+            center: const Alignment(-0.8, -0.8),
+            radius: 1.0,
             colors: [
-              Colors.white.withOpacity(0.3), // Brightness of the shine
+              Colors.white.withOpacity(0.3),
               Colors.transparent,
             ],
-            stops: const [0.0, 0.6], // Spread of the shine
+            stops: const [0.0, 0.6],
           ),
         ),
       ),
@@ -152,11 +207,136 @@ class MainScreen extends StatelessWidget {
               icon: Icon(Icons.search),
               label: 'Search',
             ),
+            // Add more items if needed
           ],
         ),
       ),
     );
   }
+}
+
+class ExhibitionCard extends StatelessWidget {
+  final Exhibition exhibition;
+
+  const ExhibitionCard({
+    super.key,
+    required this.exhibition,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.8,
+      margin: const EdgeInsets.symmetric(horizontal: 8),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade900,
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+      ),
+      child: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 11.0),
+            child: Stack(
+              alignment: Alignment.topLeft,
+              children: [
+                ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  child: Image.asset(
+                    exhibition.imagePath,
+                    width: 110,
+                    height: 110,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Positioned(
+                  top: 5,
+                  left: 0,
+                  right: 0,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: _categoryButton(
+                        exhibition.category, exhibition.buttonColor),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    exhibition.title,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    exhibition.description,
+                    style: const TextStyle(
+                      color: Colors.white70,
+                      fontSize: 14,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    '${exhibition.dateRange}',
+                    style: const TextStyle(
+                      color: Colors.white54,
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _categoryButton(String category, Color color) {
+    // Accept the color as a parameter
+    return Container(
+      decoration: BoxDecoration(
+        color: color, // Use the color for the button background
+        borderRadius: BorderRadius.circular(20),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      child: Text(
+        category.toUpperCase(),
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 12,
+        ),
+      ),
+    );
+  }
+}
+
+class Exhibition {
+  final String imagePath;
+  final String title;
+  final String dateRange;
+  final String description;
+  final String category;
+  final Color buttonColor;
+
+  Exhibition({
+    required this.imagePath,
+    required this.title,
+    required this.dateRange,
+    required this.description,
+    required this.category,
+    required this.buttonColor,
+  });
 }
 
 class CreateArtCard extends StatelessWidget {
