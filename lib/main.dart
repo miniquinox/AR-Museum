@@ -12,13 +12,21 @@ import 'pricing.dart';
 import 'particles.dart';
 import 'roadmap.dart';
 import 'NYC.dart';
+import 'package:provider/provider.dart';
+import 'timer_service.dart';
+
+final timerService = TimerService();
 
 void main() async {
-  // initialize firebase
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   AuthService.instance;
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => TimerService(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -58,6 +66,7 @@ class MainScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      ContinueExploringSection(),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16.0),
                         child: Text(
@@ -211,6 +220,36 @@ class MainScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class ContinueExploringSection extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final timerService = Provider.of<TimerService>(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: timerService.activeTimers.entries.map((entry) {
+        final timeLeft = entry.value;
+        final imagePath = timerService.getImagePath(entry.key);
+        final formattedTimeLeft =
+            '${timeLeft.inHours}:${timeLeft.inMinutes.remainder(60).toString().padLeft(2, '0')}:${timeLeft.inSeconds.remainder(60).toString().padLeft(2, '0')} left';
+        return ListTile(
+          title: Text('${entry.key} Exploration',
+              style: TextStyle(color: Colors.white)),
+          subtitle:
+              Text(formattedTimeLeft, style: TextStyle(color: Colors.orange)),
+          leading: imagePath != null
+              ? Image.asset(
+                  imagePath,
+                  width: 40, // Adjust size as needed
+                  height: 40,
+                  fit: BoxFit.cover,
+                )
+              : Icon(Icons.art_track, color: Colors.white),
+        );
+      }).toList(),
     );
   }
 }

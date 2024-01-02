@@ -6,14 +6,31 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 import '../ar_image_tracking_page.dart';
+import 'timer_service.dart';
+import 'package:provider/provider.dart';
 
 bool isPurchaseComplete = false;
 DateTime? purchaseTime;
 Timer? globalTimer;
-Duration timeLeft = Duration(minutes: 0, seconds: 10); // Initialize to 9:59
+Duration timeLeft =
+    Duration(hours: 23, minutes: 59, seconds: 59); // Initialize to 9:59
+
+String getImagePathForLocation(String locationId) {
+  switch (locationId) {
+    case 'San Francisco':
+      return 'images/golden_gate.jpeg';
+    case 'Sevilla':
+      return 'images/sevilla.jpeg';
+    case 'New York':
+      return 'images/central_park.jpeg';
+    // Add more cases as needed
+    default:
+      return 'images/AR_Museum_icon.png'; // Default image path
+  }
+}
 
 void resetTimer() {
-  timeLeft = Duration(minutes: 0, seconds: 10);
+  timeLeft = Duration(hours: 23, minutes: 59, seconds: 59);
 }
 
 void startGlobalTimer() {
@@ -114,81 +131,73 @@ class _LocationScreenState extends State<LocationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final timerService = Provider.of<TimerService>(context, listen: false);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(15.0),
-              child: SizedBox(
-                height: 300,
-                child: WebViewWidget(
-                    controller:
-                        _webController), // Updated to WebViewWidget// Updated to WebViewWidget
-              ),
-            ),
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const SizedBox(height: 20),
-                  if (artworks != null)
-                    for (var artwork in artworks!)
-                      ArtworkCard(
-                        imagePath: artwork['image'],
-                        title: artwork['title'],
-                        description: artwork['description'],
-                        gradientColor: widget.gradientColor,
-                      ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-      floatingActionButton: Container(
-        width: 140,
-        height: 56,
-        child: FloatingActionButton.extended(
-          onPressed: () {
-            if (!isPurchaseComplete) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DummyPaymentScreen(onComplete: () {
-                    setState(() {
-                      isPurchaseComplete = true;
-                      purchaseTime = DateTime.now();
-                      resetTimer();
-                      startGlobalTimer();
-                    });
-                  }),
-                ),
-              );
-            } else {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const ImageDetectionPage()),
-              );
-            }
-          },
-          backgroundColor: Colors.amber[600],
-          icon: isPurchaseComplete ? const Icon(Icons.camera_alt) : null,
-          label: isPurchaseComplete
-              ? Text(
-                  '${timeLeft.inMinutes}:${(timeLeft.inSeconds % 60).toString().padLeft(2, '0')}',
-                  style: const TextStyle(fontSize: 16),
-                )
-              : const Text('Purchase'),
+        appBar: AppBar(
+          title: Text(widget.title),
         ),
-      ),
-    );
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15.0),
+                child: SizedBox(
+                  height: 300,
+                  child: WebViewWidget(controller: _webController),
+                ),
+              ),
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: artworks
+                          ?.map((artwork) => ArtworkCard(
+                                imagePath: artwork['image'],
+                                title: artwork['title'],
+                                description: artwork['description'],
+                                gradientColor: widget.gradientColor,
+                              ))
+                          .toList() ??
+                      [],
+                ),
+              ),
+            ),
+          ],
+        ),
+        floatingActionButton: Consumer<TimerService>(
+          builder: (context, timerService, child) => Container(
+            width: 140,
+            height: 56,
+            child: FloatingActionButton.extended(
+              onPressed: () {
+                if (!timerService.isPurchaseComplete(widget.title)) {
+                  // Retrieve the corresponding image path for the location
+                  String imagePath = getImagePathForLocation(widget.title);
+
+                  // Start the timer with the location ID and image path
+                  timerService.startTimer(widget.title, imagePath);
+                } else {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ImageDetectionPage()),
+                  );
+                }
+              },
+              backgroundColor: Colors.amber[600],
+              icon: timerService.isPurchaseComplete(widget.title)
+                  ? const Icon(Icons.camera_alt)
+                  : null,
+              label: timerService.isPurchaseComplete(widget.title)
+                  ? Text(
+                      timerService.getFormattedTimeLeft(widget.title),
+                      style: const TextStyle(fontSize: 16),
+                    )
+                  : const Text('Purchase'),
+            ),
+          ),
+        ));
   }
 }
 
@@ -202,18 +211,19 @@ class DummyPaymentScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Purchase')),
       body: Center(
-        child: ElevatedButton(
-          child: Text('Complete Purchase'),
-          onPressed: () {
-            isPurchaseComplete = true;
-            purchaseTime = DateTime.now();
-            resetTimer();
-            startGlobalTimer();
-            onComplete();
-            Navigator.pop(context);
-          },
-        ),
-      ),
+          child: ElevatedButton(
+        child: Text('Complete Purchase'),
+        onPressed: () {
+          final timerService =
+              Provider.of<TimerService>(context, listen: false);
+          String locationId =
+              "YourLocationIdentifier"; // Replace with actual identifier
+          String imagePath = getImagePathForLocation(locationId);
+          timerService.startTimer(locationId, imagePath);
+          onComplete();
+          Navigator.pop(context);
+        },
+      )),
     );
   }
 }
