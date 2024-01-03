@@ -10,7 +10,6 @@ import '../ar_image_tracking_page.dart';
 import 'timer_service.dart';
 import 'package:provider/provider.dart';
 import 'city_data.dart';
-import 'package:collection/collection.dart';
 
 bool isPurchaseComplete = false;
 DateTime? purchaseTime;

@@ -240,7 +240,8 @@ class ContinueExploringSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          padding: EdgeInsets.symmetric(
+              horizontal: 16.0, vertical: 4.0), // Reduced vertical padding
           child: Text(
             'Continue Exploring',
             style: TextStyle(
@@ -258,18 +259,33 @@ class ContinueExploringSection extends StatelessWidget {
           final formattedTimeLeft =
               '${timeLeft.inHours}:${timeLeft.inMinutes.remainder(60).toString().padLeft(2, '0')}:${timeLeft.inSeconds.remainder(60).toString().padLeft(2, '0')} left';
 
-          return ListTile(
-            title: Text('${entry.key} Exploration',
-                style: const TextStyle(color: Colors.white)),
-            subtitle: Text(formattedTimeLeft,
-                style: const TextStyle(color: Colors.orange)),
-            leading: ClipRRect(
-              borderRadius: BorderRadius.circular(8.0), // Rounded corners
-              child: Image.asset(
-                imagePath,
-                width: 55,
-                height: 55,
-                fit: BoxFit.cover,
+          return Padding(
+            padding: const EdgeInsets.only(
+                bottom: 8.0), // Reduce spacing between items if needed
+            child: InkWell(
+              onTap: city != null
+                  ? () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CityScreen(city: city)),
+                      );
+                    }
+                  : null,
+              child: ListTile(
+                title: Text('${entry.key} Exploration',
+                    style: const TextStyle(color: Colors.white)),
+                subtitle: Text(formattedTimeLeft,
+                    style: const TextStyle(color: Colors.orange)),
+                leading: ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0), // Rounded corners
+                  child: Image.asset(
+                    imagePath,
+                    width: 40,
+                    height: 40,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
           );
