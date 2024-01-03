@@ -1,19 +1,19 @@
+// main.dart
 import 'dart:ui';
 import 'package:davis_project/auth/auth_guard.dart';
 import 'package:davis_project/auth/auth_service.dart';
 import 'package:davis_project/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'SF.dart';
-import 'Sevilla.dart';
 import 'Signup.dart';
 import 'LumaAIModelScreen.dart';
 import 'pricing.dart';
 import 'particles.dart';
 import 'roadmap.dart';
-import 'NYC.dart';
 import 'package:provider/provider.dart';
 import 'timer_service.dart';
+import 'city_data.dart';
+import 'locations.dart';
 
 final timerService = TimerService();
 
@@ -66,7 +66,7 @@ class MainScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ContinueExploringSection(),
+                      const ContinueExploringSection(),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16.0),
                         child: Text(
@@ -225,31 +225,56 @@ class MainScreen extends StatelessWidget {
 }
 
 class ContinueExploringSection extends StatelessWidget {
+  const ContinueExploringSection({super.key});
+
   @override
   Widget build(BuildContext context) {
     final timerService = Provider.of<TimerService>(context);
+
+    if (timerService.activeTimers.isEmpty) {
+      return const SizedBox
+          .shrink(); // Return an empty widget if there are no timers
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: timerService.activeTimers.entries.map((entry) {
-        final timeLeft = entry.value;
-        final imagePath = timerService.getImagePath(entry.key);
-        final formattedTimeLeft =
-            '${timeLeft.inHours}:${timeLeft.inMinutes.remainder(60).toString().padLeft(2, '0')}:${timeLeft.inSeconds.remainder(60).toString().padLeft(2, '0')} left';
-        return ListTile(
-          title: Text('${entry.key} Exploration',
-              style: TextStyle(color: Colors.white)),
-          subtitle:
-              Text(formattedTimeLeft, style: TextStyle(color: Colors.orange)),
-          leading: imagePath != null
-              ? Image.asset(
-                  imagePath,
-                  width: 40, // Adjust size as needed
-                  height: 40,
-                  fit: BoxFit.cover,
-                )
-              : Icon(Icons.art_track, color: Colors.white),
-        );
-      }).toList(),
+      children: [
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          child: Text(
+            'Continue Exploring',
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        ...timerService.activeTimers.entries.map((entry) {
+          final timeLeft = entry.value;
+          final city = timerService.getCity(entry.key);
+          final imagePath = city?.imagePath ??
+              'images/AR_Museum_icon.png'; // Default image path
+          final formattedTimeLeft =
+              '${timeLeft.inHours}:${timeLeft.inMinutes.remainder(60).toString().padLeft(2, '0')}:${timeLeft.inSeconds.remainder(60).toString().padLeft(2, '0')} left';
+
+          return ListTile(
+            title: Text('${entry.key} Exploration',
+                style: const TextStyle(color: Colors.white)),
+            subtitle: Text(formattedTimeLeft,
+                style: const TextStyle(color: Colors.orange)),
+            leading: ClipRRect(
+              borderRadius: BorderRadius.circular(8.0), // Rounded corners
+              child: Image.asset(
+                imagePath,
+                width: 55,
+                height: 55,
+                fit: BoxFit.cover,
+              ),
+            ),
+          );
+        }),
+      ],
     );
   }
 }
@@ -325,7 +350,7 @@ class ExhibitionCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    '${exhibition.dateRange}',
+                    exhibition.dateRange,
                     style: const TextStyle(
                       color: Colors.white54,
                       fontSize: 12,
@@ -461,43 +486,23 @@ class ArtworkCarousel extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 250,
-      child: ListView(
+      child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        children: [
-          CityArtworkCard(
-            imagePath: 'images/golden_gate.jpeg',
-            cityName: 'San Francisco',
-            subtitle: 'Explore maps',
+        itemCount: cities.length,
+        itemBuilder: (context, index) {
+          final city = cities[index];
+          return CityArtworkCard(
+            imagePath: city.imagePath,
+            cityName: city.name,
+            subtitle: 'Explore maps', // You may want to customize this per city
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SFScreen()),
+                MaterialPageRoute(builder: (context) => CityScreen(city: city)),
               );
             },
-          ),
-          CityArtworkCard(
-            imagePath: 'images/sevilla.jpeg',
-            cityName: 'Sevilla',
-            subtitle: 'Spanish charm with history that matters',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => SevillaScreen()),
-              );
-            },
-          ),
-          CityArtworkCard(
-            imagePath: 'images/central_park.jpeg',
-            cityName: 'New York',
-            subtitle: 'Explore maps',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => NYCScreen()),
-              );
-            },
-          ),
-        ],
+          );
+        },
       ),
     );
   }
@@ -609,7 +614,7 @@ class RoadmapOptionCard extends StatelessWidget {
         context,
         MaterialPageRoute(
             builder: (context) =>
-                RoadmapScreen()), // Assuming your roadmap screen class is named RoadmapScreen
+                const RoadmapScreen()), // Assuming your roadmap screen class is named RoadmapScreen
       ),
       child: frostedGlassCard(
         child: const ListTile(

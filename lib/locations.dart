@@ -1,3 +1,4 @@
+// locations.dart
 import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -8,26 +9,13 @@ import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 import '../ar_image_tracking_page.dart';
 import 'timer_service.dart';
 import 'package:provider/provider.dart';
+import 'city_data.dart';
+import 'package:collection/collection.dart';
 
 bool isPurchaseComplete = false;
 DateTime? purchaseTime;
 Timer? globalTimer;
-Duration timeLeft =
-    Duration(hours: 23, minutes: 59, seconds: 59); // Initialize to 9:59
-
-String getImagePathForLocation(String locationId) {
-  switch (locationId) {
-    case 'San Francisco':
-      return 'images/golden_gate.jpeg';
-    case 'Sevilla':
-      return 'images/sevilla.jpeg';
-    case 'New York':
-      return 'images/central_park.jpeg';
-    // Add more cases as needed
-    default:
-      return 'images/AR_Museum_icon.png'; // Default image path
-  }
-}
+Duration timeLeft = Duration(hours: 23, minutes: 59, seconds: 59);
 
 void resetTimer() {
   timeLeft = Duration(hours: 23, minutes: 59, seconds: 59);
@@ -55,6 +43,7 @@ void startGlobalTimer() {
 }
 
 class LocationScreen extends StatefulWidget {
+  final City city;
   final String title;
   final String jsonFile;
   final String webViewUrl;
@@ -62,6 +51,7 @@ class LocationScreen extends StatefulWidget {
 
   const LocationScreen({
     Key? key,
+    required this.city,
     required this.title,
     required this.jsonFile,
     required this.webViewUrl,
@@ -166,64 +156,84 @@ class _LocationScreenState extends State<LocationScreen> {
           ],
         ),
         floatingActionButton: Consumer<TimerService>(
-          builder: (context, timerService, child) => Container(
-            width: 140,
-            height: 56,
-            child: FloatingActionButton.extended(
-              onPressed: () {
-                if (!timerService.isPurchaseComplete(widget.title)) {
-                  // Retrieve the corresponding image path for the location
-                  String imagePath = getImagePathForLocation(widget.title);
+          builder: (context, timerService, child) {
+            // Directly use widget.city instead of finding it from cities list
+            City city = widget.city;
 
-                  // Start the timer with the location ID and image path
-                  timerService.startTimer(widget.title, imagePath);
-                } else {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ImageDetectionPage()),
-                  );
-                }
-              },
-              backgroundColor: Colors.amber[600],
-              icon: timerService.isPurchaseComplete(widget.title)
-                  ? const Icon(Icons.camera_alt)
-                  : null,
-              label: timerService.isPurchaseComplete(widget.title)
-                  ? Text(
-                      timerService.getFormattedTimeLeft(widget.title),
-                      style: const TextStyle(fontSize: 16),
-                    )
-                  : const Text('Purchase'),
-            ),
-          ),
+            return Container(
+              width: 140,
+              height: 56,
+              child: FloatingActionButton.extended(
+                onPressed: () {
+                  if (!timerService.isPurchaseComplete(city.name)) {
+                    // Start the timer with the City object
+                    timerService.startTimer(city);
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ImageDetectionPage(),
+                      ),
+                    );
+                  }
+                },
+                backgroundColor: Colors.amber[600],
+                icon: timerService.isPurchaseComplete(city.name)
+                    ? const Icon(Icons.camera_alt)
+                    : null,
+                label: timerService.isPurchaseComplete(city.name)
+                    ? Text(
+                        timerService.getFormattedTimeLeft(city.name),
+                        style: const TextStyle(fontSize: 16),
+                      )
+                    : const Text('Purchase'),
+              ),
+            );
+          },
         ));
+  }
+}
+
+class CityScreen extends StatelessWidget {
+  final City city;
+
+  CityScreen({required this.city});
+
+  @override
+  Widget build(BuildContext context) {
+    return LocationScreen(
+      city: city,
+      title: 'Explore ${city.name}',
+      jsonFile: city.jsonFile,
+      webViewUrl: city.webViewUrl,
+      gradientColor: city.gradientColor,
+    );
   }
 }
 
 class DummyPaymentScreen extends StatelessWidget {
   final VoidCallback onComplete;
+  final City city; // Add this line
 
-  DummyPaymentScreen({required this.onComplete});
+  DummyPaymentScreen(
+      {required this.onComplete, required this.city}); // Modify this line
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Purchase')),
       body: Center(
-          child: ElevatedButton(
-        child: Text('Complete Purchase'),
-        onPressed: () {
-          final timerService =
-              Provider.of<TimerService>(context, listen: false);
-          String locationId =
-              "YourLocationIdentifier"; // Replace with actual identifier
-          String imagePath = getImagePathForLocation(locationId);
-          timerService.startTimer(locationId, imagePath);
-          onComplete();
-          Navigator.pop(context);
-        },
-      )),
+        child: ElevatedButton(
+          child: Text('Complete Purchase'),
+          onPressed: () {
+            final timerService =
+                Provider.of<TimerService>(context, listen: false);
+            timerService.startTimer(city); // Use the passed City object
+            onComplete();
+            Navigator.pop(context);
+          },
+        ),
+      ),
     );
   }
 }

@@ -1,25 +1,28 @@
 // timer_service.dart
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'city_data.dart';
 
 class TimerService extends ChangeNotifier {
   Map<String, Duration> _timers = {};
-  Map<String, String> _imagePaths = {}; // Store image paths
+  Map<String, City> _activeCities = {}; // Store active City objects
 
-  void startTimer(String locationId, String imagePath) {
+  void startTimer(City city) {
+    final locationId = city.name;
     var timeLeft = Duration(hours: 23, minutes: 59, seconds: 59);
     _timers[locationId] = timeLeft;
-    _imagePaths[locationId] = imagePath; // Associate image path
+    _activeCities[locationId] = city; // Store the City object
 
     Timer.periodic(Duration(seconds: 1), (timer) {
       if (timeLeft.inSeconds > 0) {
         timeLeft -= Duration(seconds: 1);
         _timers[locationId] = timeLeft;
-        notifyListeners(); // Important to trigger widget rebuilds
+        notifyListeners();
       } else {
         _timers.remove(locationId);
+        _activeCities.remove(locationId);
         timer.cancel();
-        notifyListeners(); // Notify when timer ends
+        notifyListeners();
       }
     });
   }
@@ -40,8 +43,8 @@ class TimerService extends ChangeNotifier {
     return _timers[locationId];
   }
 
-  String? getImagePath(String locationId) {
-    return _imagePaths[locationId];
+  City? getCity(String locationId) {
+    return _activeCities[locationId];
   }
 
   Map<String, Duration> get activeTimers => _timers;
