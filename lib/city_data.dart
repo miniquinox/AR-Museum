@@ -1,12 +1,15 @@
-// city_data.dart
-import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart';
 
+// City class
 class City {
   final String name;
   final String imagePath;
   final String jsonFile;
   final String webViewUrl;
   final Color gradientColor;
+  final String inputImage; // New field
+  final String glbFile; // New field
 
   City({
     required this.name,
@@ -14,34 +17,33 @@ class City {
     required this.jsonFile,
     required this.webViewUrl,
     required this.gradientColor,
+    required this.inputImage, // New field
+    required this.glbFile, // New field
   });
+
+  factory City.fromJson(Map<String, dynamic> json) {
+    return City(
+      name: json['name'],
+      imagePath: json['imagePath'],
+      jsonFile: json['jsonFile'],
+      webViewUrl: json['webViewUrl'],
+      gradientColor: _hexToColor(json['gradientColor']),
+      inputImage: json['inputImage'], // New field
+      glbFile: json['glbFile'], // New field
+    );
+  }
+
+  static Color _hexToColor(String hexString) {
+    final buffer = StringBuffer();
+    if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
+    buffer.write(hexString.replaceFirst('#', ''));
+    return Color(int.parse(buffer.toString(), radix: 16));
+  }
 }
 
-final List<City> cities = [
-  City(
-    name: 'San Francisco',
-    imagePath: 'images/golden_gate.jpeg',
-    jsonFile: 'assets/SF.json',
-    webViewUrl:
-        'https://lumalabs.ai/embed/e1316b43-d3bf-46c0-8d4d-db357176929d?mode=sparkles&background=%23ffffff&color=%23000000&showTitle=true&loadBg=true&logoPosition=bottom-left&infoPosition=bottom-right&cinematicVideo=undefined&showMenu=false', // Replace with actual URL
-    gradientColor: Colors.blue.withOpacity(0.7),
-  ),
-  // Add more cities here
-  City(
-    name: 'Sevilla',
-    imagePath: 'images/sevilla.jpeg',
-    jsonFile: 'assets/Sevilla.json',
-    webViewUrl:
-        'https://lumalabs.ai/embed/e1316b43-d3bf-46c0-8d4d-db357176929d?mode=sparkles&background=%23ffffff&color=%23000000&showTitle=true&loadBg=true&logoPosition=bottom-left&infoPosition=bottom-right&cinematicVideo=undefined&showMenu=false', // Replace with actual URL
-    gradientColor: Colors.orange.withOpacity(0.7),
-  ),
-  City(
-    name: 'New York',
-    imagePath: 'images/central_park.jpeg',
-    jsonFile: 'assets/NYC.json',
-    webViewUrl:
-        'https://lumalabs.ai/embed/e1316b43-d3bf-46c0-8d4d-db357176929d?mode=sparkles&background=%23ffffff&color=%23000000&showTitle=true&loadBg=true&logoPosition=bottom-left&infoPosition=bottom-right&cinematicVideo=undefined&showMenu=false', // Replace with actual URL
-    gradientColor: Colors.green.withOpacity(0.7),
-  ),
-  // Continue adding cities as needed
-];
+// Function to load city data from JSON file
+Future<List<City>> loadCities() async {
+  final String response = await rootBundle.loadString('assets/cities.json');
+  final List<dynamic> data = json.decode(response);
+  return data.map<City>((json) => City.fromJson(json)).toList();
+}

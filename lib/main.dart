@@ -500,26 +500,41 @@ class ArtworkCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 250,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: cities.length,
-        itemBuilder: (context, index) {
-          final city = cities[index];
-          return CityArtworkCard(
-            imagePath: city.imagePath,
-            cityName: city.name,
-            subtitle: 'Explore maps', // You may want to customize this per city
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => CityScreen(city: city)),
-              );
-            },
+    return FutureBuilder<List<City>>(
+      future: loadCities(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else if (snapshot.hasData) {
+          final List<City> cities = snapshot.data!;
+          return SizedBox(
+            height: 250,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: cities.length,
+              itemBuilder: (context, index) {
+                final city = cities[index];
+                return CityArtworkCard(
+                  imagePath: city.imagePath,
+                  cityName: city.name,
+                  subtitle: 'Explore maps', // Customize this per city if needed
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CityScreen(city: city)),
+                    );
+                  },
+                );
+              },
+            ),
           );
-        },
-      ),
+        } else {
+          return const Center(child: Text('No cities found'));
+        }
+      },
     );
   }
 }
