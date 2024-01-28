@@ -13,7 +13,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
         super.viewDidLoad()
         setupSceneView()
         addLightingToScene()
-        download3DModel(from: modelURLString)
+        prepareModel()
     }
 
     func setupSceneView() {
@@ -57,6 +57,25 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
         directionalLightNode.light?.castsShadow = true
         directionalLightNode.eulerAngles = SCNVector3(-Float.pi / 2, 0, 0)
         sceneView.scene.rootNode.addChildNode(directionalLightNode)
+    }
+
+    func prepareModel() {
+        guard let url = URL(string: modelURLString) else {
+            print("Invalid URL for the 3D model")
+            return
+        }
+
+        let fileManager = FileManager.default
+        let documentsDirectory = try? fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+        let permanentUrl = documentsDirectory?.appendingPathComponent(url.lastPathComponent)
+        
+        if let permanentUrl = permanentUrl, fileManager.fileExists(atPath: permanentUrl.path) {
+            print("Model already downloaded.")
+            self.modelURL = permanentUrl
+        } else {
+            print("Model needs to be downloaded.")
+            download3DModel(from: modelURLString)
+        }
     }
 
     func download3DModel(from urlString: String) {
