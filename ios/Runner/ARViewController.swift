@@ -17,6 +17,9 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
 
         let scene = SCNScene()
         sceneView.scene = scene
+
+        addLightingToScene(scene: scene)
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -52,6 +55,27 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
         print("Session paused")
     }
 
+
+    func addLightingToScene(scene: SCNScene) {
+        // Add ambient light
+        let ambientLight = SCNLight()
+        ambientLight.type = .ambient
+        ambientLight.intensity = 1000 // Ambient light intensity
+        let ambientLightNode = SCNNode()
+        ambientLightNode.light = ambientLight
+        scene.rootNode.addChildNode(ambientLightNode)
+
+        // Add directional light
+        let directionalLight = SCNLight()
+        directionalLight.type = .directional
+        directionalLight.intensity = 1000 // Directional light intensity
+        directionalLight.castsShadow = true // Enable shadows
+        let directionalLightNode = SCNNode()
+        directionalLightNode.light = directionalLight
+        directionalLightNode.eulerAngles = SCNVector3(-Float.pi / 2, 0, 0) // Adjust the angle to suit your scene
+        scene.rootNode.addChildNode(directionalLightNode)
+    }
+
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         print("Renderer did add node for anchor")
         
@@ -76,7 +100,8 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
     }
 
     func load3DModel() -> SCNNode? {
-        guard let scene = SCNScene(named: "Starry_Night.usdz") else {
+        // guard let scene = SCNScene(named: "Starry_Night.usdz") else {
+        guard let scene = SCNScene(named: "Mustang.usdz") else {
             print("Error: Could not find 3D model file.")
             return nil
         }

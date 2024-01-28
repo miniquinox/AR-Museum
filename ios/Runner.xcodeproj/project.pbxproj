@@ -18,6 +18,7 @@
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 		D4348D952B6387B600DA75B9 /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4348D942B6387B600DA75B9 /* ARViewController.swift */; };
 		D4348D982B63900D00DA75B9 /* Starry_Night.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D4348D972B63900D00DA75B9 /* Starry_Night.usdz */; };
+		D4B96B1A2B66E6E700074D91 /* Mustang.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D4B96B192B66E6E700074D91 /* Mustang.usdz */; };
 		DBE4CAF36A255FE5216D06DC /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12F4BC863E57492AD4FC2061 /* Pods_Runner.framework */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +72,7 @@
 		C2C6545D3A203C6F43372136 /* Pods-RunnerTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.profile.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.profile.xcconfig"; sourceTree = "<group>"; };
 		D4348D942B6387B600DA75B9 /* ARViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewController.swift; sourceTree = "<group>"; };
 		D4348D972B63900D00DA75B9 /* Starry_Night.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = Starry_Night.usdz; path = ../assets/Starry_Night.usdz; sourceTree = "<group>"; };
+		D4B96B192B66E6E700074D91 /* Mustang.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = Mustang.usdz; path = ../../../../Downloads/Mustang.usdz; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +186,7 @@
 		D4348D962B638FF100DA75B9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D4B96B192B66E6E700074D91 /* Mustang.usdz */,
 				D4348D972B63900D00DA75B9 /* Starry_Night.usdz */,
 			);
 			name = Models;
@@ -289,6 +292,7 @@
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
 				D4348D982B63900D00DA75B9 /* Starry_Night.usdz in Resources */,
+				D4B96B1A2B66E6E700074D91 /* Mustang.usdz in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
 				152D5A1ED82C237AA467426E /* GoogleService-Info.plist in Resources */,
 			);
