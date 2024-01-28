@@ -16,6 +16,8 @@
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
+		D4348D952B6387B600DA75B9 /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4348D942B6387B600DA75B9 /* ARViewController.swift */; };
+		D4348D982B63900D00DA75B9 /* Starry_Night.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D4348D972B63900D00DA75B9 /* Starry_Night.usdz */; };
 		DBE4CAF36A255FE5216D06DC /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12F4BC863E57492AD4FC2061 /* Pods_Runner.framework */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +69,8 @@
 		AD3548692EDED0639EC1A360 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		B5D157AD9C9E992B95D9ADE7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "Runner/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C2C6545D3A203C6F43372136 /* Pods-RunnerTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.profile.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.profile.xcconfig"; sourceTree = "<group>"; };
+		D4348D942B6387B600DA75B9 /* ARViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewController.swift; sourceTree = "<group>"; };
+		D4348D972B63900D00DA75B9 /* Starry_Night.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = Starry_Night.usdz; path = ../assets/Starry_Night.usdz; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +124,7 @@
 		97C146E51CF9000F007C117D = {
 			isa = PBXGroup;
 			children = (
+				D4348D962B638FF100DA75B9 /* Models */,
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,
 				97C146EF1CF9000F007C117D /* Products */,
@@ -151,6 +156,7 @@
 				1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */,
 				74858FAE1ED2DC5600515810 /* AppDelegate.swift */,
 				74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */,
+				D4348D942B6387B600DA75B9 /* ARViewController.swift */,
 			);
 			path = Runner;
 			sourceTree = "<group>";
@@ -173,6 +179,14 @@
 			children = (
 			);
 			name = Assets.xcassets;
+			sourceTree = "<group>";
+		};
+		D4348D962B638FF100DA75B9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D4348D972B63900D00DA75B9 /* Starry_Night.usdz */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,6 +288,7 @@
 				97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */,
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
+				D4348D982B63900D00DA75B9 /* Starry_Night.usdz in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
 				152D5A1ED82C237AA467426E /* GoogleService-Info.plist in Resources */,
 			);
@@ -406,6 +421,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4348D952B6387B600DA75B9 /* ARViewController.swift in Sources */,
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 			);
@@ -501,6 +517,7 @@
 				DEVELOPMENT_TEAM = XDJRYXYA58;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -680,6 +697,7 @@
 				DEVELOPMENT_TEAM = XDJRYXYA58;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -703,6 +721,7 @@
 				DEVELOPMENT_TEAM = XDJRYXYA58;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

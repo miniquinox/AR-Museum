@@ -132,7 +132,7 @@ class _LocationScreenState extends State<LocationScreen> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15.0),
                 child: SizedBox(
-                  height: 300,
+                  height: 180,
                   child: WebViewWidget(controller: _webController),
                 ),
               ),

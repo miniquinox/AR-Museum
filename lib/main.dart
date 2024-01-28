@@ -5,6 +5,7 @@ import 'package:davis_project/auth/auth_service.dart';
 import 'package:davis_project/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'Signup.dart';
 import 'LumaAIModelScreen.dart';
 import 'pricing.dart';
@@ -101,7 +102,7 @@ class MainScreen extends StatelessWidget {
                       const LumaAIModelCard(),
                       const PricingOptionCard(),
                       const RoadmapOptionCard(),
-                      // Add more widgets here
+                      const ARFeatureCard(), // Add the AR feature card
                     ],
                   ),
                 ),
@@ -218,6 +219,30 @@ class MainScreen extends StatelessWidget {
             ),
             // Add more items if needed
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class ARFeatureCard extends StatelessWidget {
+  const ARFeatureCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        // Invoke the method channel to open the AR view in Swift
+        // Replace 'openARView' with the actual method name you defined in the iOS code
+        const platform = MethodChannel('com.example.davisProject');
+        platform.invokeMethod('openARView');
+      },
+      child: frostedGlassCard(
+        child: const ListTile(
+          title: Text('Test button', style: TextStyle(color: Colors.white)),
+          subtitle: Text('Tap here for Native apple camera!',
+              style: TextStyle(color: Colors.white70)),
+          leading: Icon(Icons.camera_enhance, color: Colors.white),
         ),
       ),
     );
@@ -519,7 +544,7 @@ class ArtworkCarousel extends StatelessWidget {
                 return CityArtworkCard(
                   imagePath: city.imagePath,
                   cityName: city.name,
-                  subtitle: 'Explore maps', // Customize this per city if needed
+                  subtitle: 'Explore maps',
                   onTap: () {
                     Navigator.push(
                       context,
