@@ -28,6 +28,7 @@ import Flutter
 
   private func openARView(from controller: FlutterViewController) {
     let arViewController = ARViewController()
+    arViewController.modalPresentationStyle = .fullScreen // Set full screen presentation
     controller.present(arViewController, animated: true, completion: nil)
-  }
+}
 }

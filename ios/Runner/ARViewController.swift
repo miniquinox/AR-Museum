@@ -5,8 +5,7 @@ import ARKit
 class ARViewController: UIViewController, ARSCNViewDelegate {
     var sceneView: ARSCNView!
     var isModelPlaced = false
-    var modelURL: URL? // Property to store the local URL of the downloaded model
-    // let modelURLString = "https://raw.githubusercontent.com/miniquinox/AR-Museum-Public-Files/main/Mustang.usdz"
+    var modelURL: URL?
     let modelURLString = "https://raw.githubusercontent.com/miniquinox/AR-Museum-Public-Files/main/Ford_Mustang_Shelby_GT500.usdz"
 
     override func viewDidLoad() {
@@ -14,6 +13,7 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
         setupSceneView()
         addLightingToScene()
         prepareModel()
+        addCloseButton() // Add the close button
     }
 
     func setupSceneView() {
@@ -144,5 +144,20 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
                 completion(modelNode)
             }
         }
+    }
+
+    func addCloseButton() {
+    let closeButton = UIButton(type: .system)
+    closeButton.frame = CGRect(x: 20, y: 40, width: 30, height: 30) // Adjust size and position as needed
+    if let closeImage = UIImage(systemName: "xmark") { // Using a system image
+        closeButton.setImage(closeImage, for: .normal)
+    }
+    closeButton.tintColor = .white // Change color as needed
+    closeButton.addTarget(self, action: #selector(dismissARView), for: .touchUpInside)
+    self.view.addSubview(closeButton)
+}
+
+    @objc func dismissARView() {
+        self.dismiss(animated: true, completion: nil)
     }
 }
