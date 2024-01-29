@@ -1,30 +1,30 @@
 [
-    {
-      "name": "San Francisco",
-      "imagePath": "images/golden_gate.jpeg",
-      "jsonFile": "assets/SF.json",
+  {
+    "name": "San Francisco",
+    "imagePath": "images/golden_gate.jpeg",
+    "jsonFile": "assets/SF.json",
+    "webViewUrl": "https://lumalabs.ai/embed/e1316b43-d3bf-46c0-8d4d-db357176929d",
+    "gradientColor": "#3f51b5",
+    "inputImage": "laundry",
+    "usdzFile": "https://raw.githubusercontent.com/miniquinox/AR-Museum-Public-Files/main/Ford_Mustang_Shelby_GT500.usdz"
+  },
+  {
+      "name": "Sevilla",
+      "imagePath": "images/sevilla.jpeg",
+      "jsonFile": "assets/Sevilla.json",
       "webViewUrl": "https://lumalabs.ai/embed/e1316b43-d3bf-46c0-8d4d-db357176929d",
-      "gradientColor": "#3f51b5",
-      "inputImage": "laundry",
-      "glbFile": "assets/Porsche2.glb"
-    },
-    {
-        "name": "Sevilla",
-        "imagePath": "images/sevilla.jpeg",
-        "jsonFile": "assets/Sevilla.json",
-        "webViewUrl": "https://lumalabs.ai/embed/e1316b43-d3bf-46c0-8d4d-db357176929d",
-        "gradientColor": "#ff9800",
-        "inputImage": "laundry",
-        "glbFile": "assets/Porsche2.glb"
-    },
-    {
-      "name": "New York",
-      "imagePath": "images/central_park.jpeg",
-      "jsonFile": "assets/NYC.json",
-      "webViewUrl": "https://lumalabs.ai/embed/e1316b43-d3bf-46c0-8d4d-db357176929d",
-      "gradientColor": "#4caf50",
-      "inputImage": "laundry",
-      "glbFile": "assets/Porsche2.glb"
-    }
-  ]
+      "gradientColor": "#ff9800",
+      "inputImage": "earth",
+      "usdzFile": "https://raw.githubusercontent.com/miniquinox/AR-Museum-Public-Files/main/Ford_Mustang_Shelby_GT500.usdz"
+  },
+  {
+    "name": "New York",
+    "imagePath": "images/central_park.jpeg",
+    "jsonFile": "assets/NYC.json",
+    "webViewUrl": "https://lumalabs.ai/embed/e1316b43-d3bf-46c0-8d4d-db357176929d",
+    "gradientColor": "#4caf50",
+    "inputImage": "laundry",
+    "usdzFile": "https://raw.githubusercontent.com/miniquinox/AR-Museum-Public-Files/main/Ford_Mustang_Shelby_GT500.usdz"
+  }
+]
   

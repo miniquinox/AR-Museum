@@ -8,8 +8,8 @@ class City {
   final String jsonFile;
   final String webViewUrl;
   final Color gradientColor;
-  final String inputImage; // New field
-  final String glbFile; // New field
+  final String inputImage;
+  final String usdzFile;
 
   City({
     required this.name,
@@ -17,8 +17,8 @@ class City {
     required this.jsonFile,
     required this.webViewUrl,
     required this.gradientColor,
-    required this.inputImage, // New field
-    required this.glbFile, // New field
+    required this.inputImage,
+    required this.usdzFile,
   });
 
   factory City.fromJson(Map<String, dynamic> json) {
@@ -29,7 +29,7 @@ class City {
       webViewUrl: json['webViewUrl'],
       gradientColor: _hexToColor(json['gradientColor']),
       inputImage: json['inputImage'], // New field
-      glbFile: json['glbFile'], // New field
+      usdzFile: json['usdzFile'], // New field
     );
   }
 

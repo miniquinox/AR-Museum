@@ -233,7 +233,6 @@ class ARFeatureCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         // Invoke the method channel to open the AR view in Swift
-        // Replace 'openARView' with the actual method name you defined in the iOS code
         const platform = MethodChannel('com.example.davisProject');
         platform.invokeMethod('openARView');
       },

@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
-import '../ar_image_tracking_page.dart';
 import 'timer_service.dart';
 import 'package:provider/provider.dart';
 import 'city_data.dart';
@@ -156,7 +155,6 @@ class _LocationScreenState extends State<LocationScreen> {
         ),
         floatingActionButton: Consumer<TimerService>(
           builder: (context, timerService, child) {
-            // Directly use widget.city instead of finding it from cities list
             City city = widget.city;
 
             return Container(
@@ -165,15 +163,20 @@ class _LocationScreenState extends State<LocationScreen> {
               child: FloatingActionButton.extended(
                 onPressed: () {
                   if (!timerService.isPurchaseComplete(city.name)) {
-                    // Start the timer with the City object
                     timerService.startTimer(city);
                   } else {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ImageDetectionPage(),
-                      ),
-                    );
+                    // Now using the usdzFile and inputImage from City object
+                    const platform = MethodChannel('com.example.davisProject');
+                    try {
+                      platform.invokeMethod('openARView', <String, String>{
+                        'modelURLString':
+                            city.usdzFile, // Pass the USDZ file URL
+                        'imageName':
+                            city.inputImage, // Pass the input image name for AR
+                      });
+                    } on PlatformException catch (e) {
+                      print("Failed to open AR view: '${e.message}'.");
+                    }
                   }
                 },
                 backgroundColor: Colors.amber[600],

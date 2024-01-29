@@ -6,22 +6,27 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
     var sceneView: ARSCNView!
     var isModelPlaced = false
     var modelURL: URL?
-    let modelURLString = "https://raw.githubusercontent.com/miniquinox/AR-Museum-Public-Files/main/Ford_Mustang_Shelby_GT500.usdz"
+    var modelURLString: String?
+    var imageName: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSceneView()
         addLightingToScene()
-        prepareModel()
-        addCloseButton() // Add the close button
+        if let modelURLString = self.modelURLString {
+            prepareModel(from: modelURLString)
+        }
+        addCloseButton()
     }
 
     func setupSceneView() {
-        sceneView = ARSCNView(frame: view.frame)
-        view.addSubview(sceneView)
+        sceneView = ARSCNView(frame: self.view.frame)
+        self.view.addSubview(sceneView)
         sceneView.delegate = self
         sceneView.showsStatistics = true
         sceneView.scene = SCNScene()
+        // Enable automatic lighting to improve the appearance of the model
+        sceneView.autoenablesDefaultLighting = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -35,11 +40,24 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
     }
 
     func setupARSession() {
+        guard ARWorldTrackingConfiguration.isSupported else {
+            print("ARWorldTrackingConfiguration is not supported on this device")
+            return
+        }
+
         let configuration = ARWorldTrackingConfiguration()
-        configuration.detectionImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources", bundle: nil) ?? Set<ARReferenceImage>()
+        configuration.planeDetection = [.horizontal, .vertical]
+        if let trackedImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources", bundle: nil),
+           let imageName = imageName, let imageToTrack = trackedImages.first(where: { $0.name == imageName }) {
+            configuration.detectionImages = [imageToTrack]
+            configuration.maximumNumberOfTrackedImages = 1
+        }
+        
+        // Enable people occlusion if supported
         if #available(iOS 13.0, *), ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth) {
             configuration.frameSemantics.insert(.personSegmentationWithDepth)
         }
+
         sceneView.session.run(configuration)
     }
 
@@ -59,22 +77,28 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
         sceneView.scene.rootNode.addChildNode(directionalLightNode)
     }
 
-    func prepareModel() {
-        guard let url = URL(string: modelURLString) else {
+    func prepareModel(from urlString: String) {
+        // Fixed to ensure urlString is used directly
+        guard let url = URL(string: urlString) else {
             print("Invalid URL for the 3D model")
             return
         }
 
+        // Simplifying file path construction and checking
         let fileManager = FileManager.default
-        let documentsDirectory = try? fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-        let permanentUrl = documentsDirectory?.appendingPathComponent(url.lastPathComponent)
-        
-        if let permanentUrl = permanentUrl, fileManager.fileExists(atPath: permanentUrl.path) {
-            print("Model already downloaded.")
-            self.modelURL = permanentUrl
-        } else {
-            print("Model needs to be downloaded.")
-            download3DModel(from: modelURLString)
+        do {
+            let documentsDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            let permanentUrl = documentsDirectory.appendingPathComponent(url.lastPathComponent)
+            
+            if fileManager.fileExists(atPath: permanentUrl.path) {
+                print("Model already downloaded.")
+                self.modelURL = permanentUrl
+            } else {
+                print("Model needs to be downloaded.")
+                download3DModel(from: urlString) // Correctly passing urlString
+            }
+        } catch {
+            print("Error obtaining document directory: \(error)")
         }
     }
 
@@ -110,40 +134,39 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
 
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard let imageAnchor = anchor as? ARImageAnchor,
-              imageAnchor.referenceImage.name == "laundry",
-              !isModelPlaced,
-              let modelURL = self.modelURL else {
-            return
-        }
+            imageAnchor.referenceImage.name == imageName,
+            !isModelPlaced,
+            let modelURL = self.modelURL else { return }
 
         DispatchQueue.main.async {
-            self.loadModel(from: modelURL, completion: { modelNode in
-                guard let modelNode = modelNode else {
-                    print("Failed to load 3D model")
-                    return
-                }
-                node.addChildNode(modelNode)
+            if let modelNode = self.loadModel(from: modelURL) {
+                // Attach the model to the scene's root node to keep it in place
+                // even when the image anchor is no longer detected.
+                self.sceneView.scene.rootNode.addChildNode(modelNode)
+
+                // Position the model where the image anchor was detected in the world.
+                // This code places the model at the exact position of the image anchor.
+                // You might need to adjust the position based on your specific model or use case.
+                modelNode.position = SCNVector3(node.worldPosition.x, node.worldPosition.y, node.worldPosition.z)
+
                 self.isModelPlaced = true
                 print("3D model loaded and added to the scene")
-            })
+            }
         }
     }
 
-    func loadModel(from url: URL, completion: @escaping (SCNNode?) -> Void) {
-        DispatchQueue.global().async {
-            guard let scene = try? SCNScene(url: url, options: nil),
-                  let modelNode = scene.rootNode.childNodes.first else {
-                DispatchQueue.main.async {
-                    completion(nil)
-                }
-                return
-            }
-            modelNode.scale = SCNVector3(0.001, 0.001, 0.001)
-            modelNode.position = SCNVector3(0, 0.1, 0)
-            DispatchQueue.main.async {
-                completion(modelNode)
-            }
+    func loadModel(from url: URL) -> SCNNode? {
+        guard let scene = try? SCNScene(url: url, options: nil),
+              let modelNode = scene.rootNode.childNodes.first else {
+            print("Failed to load 3D model from \(url)")
+            return nil
         }
+        
+        // Configure the model node as needed
+        modelNode.scale = SCNVector3(0.001, 0.001, 0.001) // Adjust based on your model's size
+        modelNode.position = SCNVector3(0, 0, -0.5) // Adjust based on your needs
+        
+        return modelNode
     }
 
     func addCloseButton() {
