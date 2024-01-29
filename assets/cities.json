@@ -23,7 +23,7 @@
     "jsonFile": "assets/NYC.json",
     "webViewUrl": "https://lumalabs.ai/embed/e1316b43-d3bf-46c0-8d4d-db357176929d",
     "gradientColor": "#4caf50",
-    "inputImage": "laundry",
+    "inputImage": "mustang",
     "usdzFile": "https://raw.githubusercontent.com/miniquinox/AR-Museum-Public-Files/main/Ford_Mustang_Shelby_GT500.usdz"
   }
 ]
