@@ -134,26 +134,27 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
 
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard let imageAnchor = anchor as? ARImageAnchor,
-            imageAnchor.referenceImage.name == imageName,
-            !isModelPlaced,
-            let modelURL = self.modelURL else { return }
+            imageAnchor.referenceImage.name == imageName else { return }
 
-        DispatchQueue.main.async {
-            if let modelNode = self.loadModel(from: modelURL) {
-                // Attach the model to the scene's root node to keep it in place
-                // even when the image anchor is no longer detected.
-                self.sceneView.scene.rootNode.addChildNode(modelNode)
-
-                // Position the model where the image anchor was detected in the world.
-                // This code places the model at the exact position of the image anchor.
-                // You might need to adjust the position based on your specific model or use case.
-                modelNode.position = SCNVector3(node.worldPosition.x, node.worldPosition.y, node.worldPosition.z)
-
-                self.isModelPlaced = true
-                print("3D model loaded and added to the scene")
+        // Check if the model has already been placed to avoid adding it more than once.
+        if !isModelPlaced, let modelURL = self.modelURL {
+            DispatchQueue.main.async {
+                if let modelNode = self.loadModel(from: modelURL) {
+                    // Attach the model to the root node instead of the image anchor's node.
+                    // This way, the model will not be affected by the visibility of the image anchor.
+                    self.sceneView.scene.rootNode.addChildNode(modelNode)
+                    
+                    // Adjust the model's position based on the image anchor's real-world position.
+                    // This initial placement aligns the model with the image, but it won't move or disappear with the image.
+                    modelNode.position = SCNVector3(node.worldPosition.x, node.worldPosition.y, node.worldPosition.z)
+                    
+                    self.isModelPlaced = true
+                    print("3D model loaded and added to the scene")
+                }
             }
         }
     }
+
 
     func loadModel(from url: URL) -> SCNNode? {
         guard let scene = try? SCNScene(url: url, options: nil),
