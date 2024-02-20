@@ -4,9 +4,27 @@ import 'dataManager.dart'; // Ensure this file is updated as previously describe
 import 'particles.dart'; // Assuming this is a custom widget you've defined.
 import 'city.dart'; // Ensure this file is updated as previously described.
 import 'LumaAIModelScreen.dart';
+import 'package:davis_project/auth/auth_guard.dart';
+import 'package:davis_project/auth/auth_service.dart';
+import 'package:davis_project/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'Signup.dart';
+import 'package:provider/provider.dart';
+import 'timer_service.dart';
+import 'pricing.dart';
 
-void main() {
-  runApp(const MyApp());
+final timerService = TimerService();
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  AuthService.instance;
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => TimerService(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -15,14 +33,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Artwork Discovery',
       theme: ThemeData.dark().copyWith(
         primaryColor: Colors.deepPurple,
-        scaffoldBackgroundColor: const Color(0x22272c),
+        scaffoldBackgroundColor: const Color(0xFF121212),
         appBarTheme: const AppBarTheme(
-          color: Color.fromARGB(255, 100, 76, 76),
+          color: Color(0xFF121212),
         ),
       ),
-      home: const MainScreen(),
+      home: const AuthGaurdPage(), // Use SplashScreen from splash.dart
     );
   }
 }
@@ -32,11 +51,11 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _buildShineEffect(); // Shine of light effect
     return Scaffold(
       body: Stack(
         children: [
           const Positioned.fill(child: ParticleWidget()), // Particle effect
-          _buildShineEffect(), // Shine of light effect
           Column(
             children: [
               _buildCustomAppBar(),
@@ -76,6 +95,9 @@ class MainScreen extends StatelessWidget {
                       const ArtworkCarousel(),
                       // const SizedBox(height: 8),
                       const LumaAIModelCard(),
+                      // const SizedBox(height: 8),
+                      const CreateArtCard(),
+                      const PricingOptionCard(),
                     ],
                   ),
                 ),
@@ -249,6 +271,52 @@ Widget frostedGlassCard({required Widget child}) {
       ),
     ),
   );
+}
+
+class PricingOptionCard extends StatelessWidget {
+  const PricingOptionCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => PricingScreen()),
+      ),
+      child: frostedGlassCard(
+        child: const ListTile(
+          title: Text('Explore Pricing Plans',
+              style: TextStyle(color: Colors.white)),
+          subtitle: Text('Find the best plan for your experience!',
+              style: TextStyle(color: Colors.white70)),
+          leading: Icon(Icons.monetization_on, color: Colors.white),
+        ),
+      ),
+    );
+  }
+}
+
+class CreateArtCard extends StatelessWidget {
+  const CreateArtCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => SignupScreen()),
+      ),
+      child: frostedGlassCard(
+        child: const ListTile(
+          title: Text('Submit Your Own Art',
+              style: TextStyle(color: Colors.white)),
+          subtitle: Text('Tap here to get started!',
+              style: TextStyle(color: Colors.white70)),
+          leading: Icon(Icons.add, color: Colors.white),
+        ),
+      ),
+    );
+  }
 }
 
 class ExhibitionCard extends StatelessWidget {

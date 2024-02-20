@@ -128,7 +128,8 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
         do {
             let scene = try SCNScene(url: url, options: nil)
             let modelNode = scene.rootNode.childNodes.first
-            modelNode?.scale = SCNVector3(0.001, 0.001, 0.001) // Adjust as needed
+            modelNode?.scale = SCNVector3(0.01, 0.01, 0.01) // Adjust as needed
+            // left/right, up/down, forward/backward
             modelNode?.position = SCNVector3(0, 0, -0.5) // Adjust as needed
             return modelNode
         } catch {
