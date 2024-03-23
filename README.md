@@ -4,6 +4,8 @@ Welcome to the Augmented Reality Museum app! Our platform brings art to life thr
 
 ## App Screenshots
 
+![AR Museum Screenshot](https://github.com/miniquinox/AR-Museum/assets/63688331/6a1fab5b-8c4e-4e7d-ae5b-cf9fd7a98d0d)
+
 ![Optimized_Screenshots](https://github.com/miniquinox/AR-Museum/assets/63688331/d43b1e01-7324-42bd-aff6-6035d4eddaf7)
 
 *From left to right, top to bottom:*
