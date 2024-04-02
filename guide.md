@@ -5,4 +5,4 @@ flutter pub outdated
 cd ios
 pod install
 flutter build ios
-flutter install
+flutter install 
